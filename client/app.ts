@@ -7,13 +7,14 @@ import AppController from './app.controller';
 import Config from './app.config';
 import Runners from './app.runners';
 import HomeComponent from './app/components/home/home.component';
+import WidgetComponent from './app/components/widget/widget.component';
 
 const topLevelComponents = [
   HomeComponent
 ];
 
 const lowLevelComponents = [
-
+  WidgetComponent
 ];
 
 const appDependencies = ['ui.router', 'ngResource', 'ngStorage'];
