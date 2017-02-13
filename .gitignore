@@ -1,0 +1,6 @@
+npm-debug.log
+node_modules
+client/**/*.js
+server/**/*.js
+bundle
+.env
