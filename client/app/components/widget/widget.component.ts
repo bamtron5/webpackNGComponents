@@ -8,7 +8,6 @@ class Widget {
   public name;
   constructor() {
     this.name = 'Widget';
-    console.log('Widget component loaded');
   }
 }
 
@@ -18,6 +17,9 @@ export default angular.module('App.components.widget', [])
   .component(componentName, {
     controller: Widget,
     templateUrl: template,
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    bindings: {
+      things: '<'
+    }
   })
   .name;

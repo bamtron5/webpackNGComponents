@@ -5,10 +5,16 @@ const componentName = 'home';
 const template = '/client/app/components/home/home.html';
 
 class Home {
-  public name;
+  public name:string;
+  public things:Array<string>;
   constructor() {
     this.name = 'Home';
-    console.log('Home component loaded');
+    this.things = [
+      'Sofa',
+      'Desk',
+      'Computer',
+      'Chair'
+    ];
   }
 }
 
