@@ -4,3 +4,4 @@ client/**/*.js
 server/**/*.js
 bundle
 .env
+dist

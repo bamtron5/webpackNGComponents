@@ -96,6 +96,8 @@ app.use('/bower_components', express.static('bower_components'));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/client', express.static('client'));
 app.use('/bundle', express.static('bundle'));
+app.use('/dist', express.static('dist'));
+
 
 //a server route
 // app.use('/', routes);

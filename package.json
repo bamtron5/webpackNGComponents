@@ -5,16 +5,21 @@
   "main": "server/bin/www",
   "scripts": {
     "build:server": "tsc -p server",
-    "build:client": "node_modules/.bin/webpack client/app.ts bundle/app.bundle.js",
+    "build:client": "node_modules/.bin/webpack",
     "build:sass": "node-sass ./client/styles/ -o ./client/styles/",
     "build": "npm run build:client && npm run build:server && npm run build:sass",
-    "watch": "concurrently \"node_modules/.bin/webpack client/app.ts bundle/app.bundle.js -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon\""
+    "build:prod": "PROD_ENV=1 npm run watch",
+    "watch": "concurrently \"node_modules/.bin/webpack -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon\"",
+    "watch:prod": "PROD_ENV=1 npm run watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "compression-webpack-plugin": "^0.3.2",
     "concurrently": "^3.3.0",
-    "webpack": "^2.2.1"
+    "ng-annotate-webpack-plugin": "^0.2.1-pre",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.3.0"
   },
   "dependencies": {
     "@types/angular": "^1.6.5",
