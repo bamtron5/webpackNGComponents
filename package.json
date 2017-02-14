@@ -10,7 +10,9 @@
     "build": "npm run build:client && npm run build:server && npm run build:sass",
     "build:prod": "PROD_ENV=1 npm run watch",
     "watch": "concurrently \"node_modules/.bin/webpack -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon\"",
-    "watch:prod": "PROD_ENV=1 npm run watch"
+    "watch:prod": "PROD_ENV=1 npm run watch",
+    "serve": "nodemon",
+    "start": "npm run watch"
   },
   "author": "",
   "license": "ISC",

@@ -11,7 +11,7 @@ module.exports = {
     path: __dirname + "/dist",
     filename: "bundle.js"
   },
-  plugins: [
+  plugins: isProd ? [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
@@ -25,5 +25,7 @@ module.exports = {
     //   threshold: 10240,
     //   minRatio: 0.8
     // })
+  ] : [
+    
   ]
 };

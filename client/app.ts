@@ -12,7 +12,7 @@ import WidgetComponent from './app/components/widget/widget.component';
 const topLevelComponents = [
   HomeComponent
 ];
- 
+
 const lowLevelComponents = [
   WidgetComponent
 ];
@@ -30,5 +30,8 @@ angular
     controller: AppController
   });
 
-angular.element(document.getElementsByTagName('body'))[0].className
-  .indexOf('ng-scope') === -1 ? angular.bootstrap(document.body, modules, { strictDi: true }) : angular.noop();
+angular.element(document.getElementsByTagName('body'))[0]
+  .className
+  .indexOf('ng-scope') === -1
+  ? angular.bootstrap(document.body, modules, { strictDi: true })
+  : angular.noop();
