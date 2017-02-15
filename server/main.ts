@@ -105,6 +105,7 @@ app.use('/dist', express.static('dist'));
 //apis
 // app.use('/api', require('./api/books'));
 // app.use('/api', require('./api/users'));
+app.use('/api', require('./api/ping'));
 
 // THIS IS THE INTERCEPTION OF ALL OTHER REQ
 // After server routes / static / api

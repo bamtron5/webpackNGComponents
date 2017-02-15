@@ -19,7 +19,7 @@ const lowLevelComponents = [
 
 const appDependencies = ['ui.router', 'ngResource', 'ngStorage'];
 const modules = ['App'].concat(topLevelComponents, lowLevelComponents);
-
+ 
 angular
   .module('App', appDependencies)
   .config(Config)

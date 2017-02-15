@@ -14,7 +14,9 @@ namespace App.Components {
         'Sofa',
         'Desk',
         'Computer',
-        'Chair'
+        'Chair',
+        'Stuff',
+        'Things' 
       ];
     }
   }
