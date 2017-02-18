@@ -22,12 +22,17 @@ npm start
 ```
 
 Known bugs:
+
 1. Webpack analyzer `npm run analyzer:prod` analyzes dev build
+
 2. I am currently unaware of how to wait for express to load before I open the browser.  So refresh your page.
+
 3. Windows users seem to have shell PATH issues involving webpack/tsc/node-sass.  Try to use gitbash shell or possibly powershell.  The main fix is just install webpack and typescript globally.
+
 4. You probably no longer need bower.  Prove to me that you do.
 
 TODO:
+
 1. Bootstrap
 
 2. API w/ JSON Datasets
