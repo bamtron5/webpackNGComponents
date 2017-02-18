@@ -14,10 +14,8 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "lib": [
-          "es2016",
-          "dom"
-        ]
+        "lib": ["dom", "es6"],
+        "sourceMap": true
     },
     "exclude": [
         "node_modules",

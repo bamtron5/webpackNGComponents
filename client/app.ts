@@ -12,7 +12,7 @@ import WidgetComponent from './app/components/widget/widget.component';
 const topLevelComponents = [
   HomeComponent
 ];
-
+ 
 const lowLevelComponents = [
   WidgetComponent
 ];
