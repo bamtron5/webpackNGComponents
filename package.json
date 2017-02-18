@@ -4,12 +4,14 @@
   "description": "",
   "main": "server/bin/www",
   "scripts": {
-    "build:server": "tsc -p server",
-    "build:client": "node_modules/.bin/webpack",
+    "postinstall": "tsc",
+    "analyze": "ANALYZE=1 npm run build",
+    "analyze:prod": "ANALYZE=1 PROD_ENV=1 npm run build:prod",
+    "build:client": "webpack",
     "build:sass": "node-sass ./client/styles/ -o ./client/styles/",
-    "build": "npm run build:client && npm run build:server && npm run build:sass",
-    "build:prod": "PROD_ENV=1 npm run watch",
-    "watch": "concurrently \"node_modules/.bin/webpack -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon\"",
+    "build": "tsc && npm run build:client && npm run build:sass",
+    "build:prod": "PROD_ENV=1 npm run build",
+    "watch": "tsc && concurrently \"webpack -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon\"",
     "watch:prod": "PROD_ENV=1 npm run watch",
     "serve": "nodemon",
     "start": "npm run watch"
@@ -19,9 +21,13 @@
   "devDependencies": {
     "compression-webpack-plugin": "^0.3.2",
     "concurrently": "^3.3.0",
+    "html-webpack-plugin": "^2.28.0",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
+    "open-browser-webpack-express-plugin": "0.0.3",
+    "open-browser-webpack-plugin": "0.0.3",
     "webpack": "^2.2.1",
-    "webpack-bundle-analyzer": "^2.3.0"
+    "webpack-bundle-analyzer": "^2.3.0",
+    "node-sass": "^4.5.0"
   },
   "dependencies": {
     "@types/angular": "^1.6.5",
@@ -63,7 +69,6 @@
     "mongoose": "^4.8.2",
     "morgan": "^1.8.1",
     "ngstorage": "^0.3.11",
-    "node-sass": "^4.5.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "validator": "^6.2.1"

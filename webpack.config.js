@@ -1,12 +1,17 @@
 var webpack = require('webpack');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var path = require('path');
+var OpenBrowserWebpackExpressPlugin = require('open-browser-webpack-express-plugin');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// var CompressionPlugin = require("compression-webpack-plugin"); //gzip
 var isProd = JSON.parse(process.env.PROD_ENV || '0'); // `PROD_ENV=1 webpack`
+var analyze = JSON.parse(process.env.ANALYZE || '0');
 
 module.exports = {
-  entry: "./client/app.ts",
+  entry: {
+    app: "./client/app.ts"
+  },
   output: {
     path: __dirname + "/dist",
     filename: "bundle.js"
@@ -16,16 +21,12 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
     }),
-    // new BundleAnalyzerPlugin()
-    // new webpack.optimize.CommonsChunkPlugin({name: 'vendor'})
-    // new CompressionPlugin({
-    //   asset: "[path].gz[query]",
-    //   algorithm: "gzip",
-    //   test: /\.js$|\.html$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8
-    // })
+    analyze ? new BundleAnalyzerPlugin() : function(){},
+    analyze ? new OpenBrowserPlugin({url: '127.0.0.1:8888'}) : function(){}
   ] : [
-    
+    // DEV PLUGINS
+    new OpenBrowserWebpackExpressPlugin({url: 'http://localhost:3000'}),
+    analyze ? new BundleAnalyzerPlugin() : function(){},
+    analyze ? new OpenBrowserPlugin({url: '127.0.0.1:8888'}) : function(){}
   ]
 };

@@ -5,3 +5,5 @@ server/**/*.js
 bundle
 .env
 dist
+*.map
+*.map.js
