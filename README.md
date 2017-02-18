@@ -29,15 +29,27 @@ Known bugs:
 
 TODO:
 1. Bootstrap
+
 2. API w/ JSON Datasets
+
 3. express-session auth and/or OAUTH authentication
+
 4. AUTH core component and UNAUTH core component
+
 5. Webpack import sass
+
 6. Webpack html template caching
+
 7. Treeshaking <- google it
+
 8. Webpack import HTML templates
+
 9. Deployment build
+
 10. Websockets server
+
 11. Hot module loading in webpack dev server. (unlikely)
+
 12. Twitter OAuth
+
 13. HTML script injection
