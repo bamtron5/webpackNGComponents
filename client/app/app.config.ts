@@ -25,9 +25,11 @@ const Config = [
       url: '/reload',
       template: 'Reloading... <i class="fa fa-spinner infinite rotateIn"></i>',
       resolve: {
-        reload: ['$state', '$timeout', ($state, $timeout) => {
-          return $timeout(() => $state.go('home', {}, {reload:true, inherit: false, notify: true}), 100)
-        }]
+        reload: [
+          '$state',
+          '$timeout',
+          ($state, $timeout) => $timeout(() => $state.go('home', {}, {reload:true, inherit: false, notify: true}), 100)
+        ]
       }
     })
 

@@ -1,10 +1,13 @@
+import * as angular from 'angular';
+/// <reference types="angular-toastr" />
 class LayoutController {
   user;
   constructor(
     SessionService,
     private UserService,
     private $window,
-    private $state:ng.ui.IStateService
+    private $state:ng.ui.IStateService,
+    private toastr
   ) {
     this.user = SessionService.getUser();
   }
@@ -24,7 +27,8 @@ LayoutController.$inject = [
   'SessionService',
   'UserService',
   '$window',
-  '$state'
+  '$state',
+  'toastr'
 ];
 
 export default LayoutController;
