@@ -7,6 +7,9 @@
 var app = require('../main');
 var debug = require('debug')('myapp:server');
 var http = require('http');
+var reload = require('reload');
+var isDev = app.get('env') === 'development' ? true : false;
+
 
 /**
  * Get port from environment and store in Express.
@@ -25,9 +28,15 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+if (isDev) {
+  reload(server, app);
+}
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -82,6 +91,7 @@ function onError(error) {
  */
 
 function onListening() {
+
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr

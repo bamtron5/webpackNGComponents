@@ -11,7 +11,7 @@
     "build": "tsc && npm run build:client && npm run build:sass",
     "build:prod": "PROD_ENV=1 npm run build",
     "dev": "tsc && concurrently \"webpack -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon\"",
-    "dev:prod": "PROD_ENV=1 npm run watch",
+    "dev:prod": "PROD_ENV=1 npm run dev",
     "serve": "nodemon",
     "start": "tsc && npm run watch"
   },
@@ -84,6 +84,7 @@
     "ngstorage": "^0.3.11",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "reload": "^1.1.1",
     "toastr": "^2.1.2",
     "validator": "^6.2.1"
   }

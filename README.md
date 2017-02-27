@@ -15,8 +15,8 @@ npm run build:client
 npm run build:sass
 npm run build
 npm run build:prod
-npm run watch
-npm run watch:prod
+npm run dev
+npm run dev:prod
 npm serve
 npm start
 ```

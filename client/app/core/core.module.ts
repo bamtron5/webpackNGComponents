@@ -11,7 +11,7 @@ import {DogsServiceModule} from '../services/dogs.service';
 import '../../../node_modules/nvd3/build/nv.d3';
 import '../../../node_modules/nvd3/build/nv.d3.css';
 import '../../../node_modules/animate.css/animate.css';
-import '../../../node_modules/font-awesome/scss/font-awesome.scss'; 
+import '../../../node_modules/font-awesome/scss/font-awesome.scss';
 
 export default angular.module('app.core', [
   'ngResource',
