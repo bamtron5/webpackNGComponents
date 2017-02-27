@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../main')
+var app = require('../main').default;
 var debug = require('debug')('myapp:server')
 var http = require('http')
 var reload = require('reload')

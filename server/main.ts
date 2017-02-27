@@ -12,7 +12,6 @@ import {User} from './models/User';
 import routes from './routes';
 import configPassport from './config/passport';
 const MongoStore = require('connect-mongo')(session);
-let dotenv = require('dotenv');
 
 //routes
 import * as ping from './api/ping';
@@ -22,10 +21,6 @@ import * as user from './api/user';
 
 let app = express();
 const isDev = app.get('env') === 'development' ? true : false;
-//dev env
-if(isDev){
-  dotenv.config();
-}
 
 app.enable('trust proxy');
 
@@ -151,4 +146,4 @@ app.use((err, res) => {
   res.status(err['status'] || 500);
 });
 
-export = app;
+export default app;
