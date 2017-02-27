@@ -32,7 +32,7 @@ Known bugs:
 
 TODO:
 
-~~1. Bootstrap~~
+1. ~~Bootstrap~~
 
 2. API w/ JSON Datasets
 
@@ -40,7 +40,7 @@ TODO:
 
 4. AUTH core component and UNAUTH core component
 
-~~5. Webpack import sass~~
+5. ~~Webpack import sass~~
 
 6. Webpack html template caching
 
@@ -52,10 +52,10 @@ TODO:
 
 10. Websockets server
 
-~~11. Hot module loading in webpack dev server. (unlikely)~~
+11. ~~Hot module loading in webpack dev server. (unlikely)~~
 
 12. Twitter OAuth
 
-~~13. HTML script injection~~
+13. ~~HTML script injection~~
 
-14. Separate API and Client deployments
+14. Separate API and Client deployments w/ trust proxy
