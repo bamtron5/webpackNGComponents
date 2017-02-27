@@ -16,8 +16,8 @@
     "serve": "nodemon",
     "debug": "node debug server/bin/www.js",
     "inspect": "node --inspect server/bin/www.js",
-    "lint": "standard",
-    "fix": "standard --fix",
+    "lint": "typescript-standard",
+    "fix": "typescript-standard --fix",
     "start": "npm run dev"
   },
   "author": "",
@@ -32,8 +32,8 @@
     "sass-loader": "^6.0.2",
     "script-loader": "^0.7.0",
     "source-map-loader": "^0.1.6",
-    "standard": "^8.6.0",
     "style-loader": "^0.13.2",
+    "typescript-standard": "^0.3.14",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-bundle-analyzer": "^2.3.0"
