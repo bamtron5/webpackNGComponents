@@ -5,7 +5,6 @@ class LayoutController {
   constructor(
     SessionService,
     private UserService,
-    private $window,
     private $state:ng.ui.IStateService,
     private toastr
   ) {
@@ -15,10 +14,11 @@ class LayoutController {
   logout() {
     this.UserService.logout()
       .then((response) => {
-        this.$window.location.href = '/';
+        this.toastr.info(`${this.user.username} has logged out.`, 'Goodbye')
+        this.$state.go('reload');
       })
       .catch((e) => {
-        console.log(e);
+        this.toastr.error('Unable to logout.','Error');
       });
   }
 }
@@ -26,7 +26,6 @@ class LayoutController {
 LayoutController.$inject = [
   'SessionService',
   'UserService',
-  '$window',
   '$state',
   'toastr'
 ];
