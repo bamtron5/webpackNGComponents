@@ -10,7 +10,14 @@ import * as morgan from 'morgan';
 import * as debug from 'debug';
 import {User} from './models/User';
 import routes from './routes';
+import configPassport from './config/passport';
 const MongoStore = require('connect-mongo')(session);
+
+//routes
+import * as ping from './api/ping';
+import * as auth from './api/auth';
+import * as protect from './api/protected';
+import * as user from './api/user';
 
 let app = express();
 const isDev = app.get('env') === 'development' ? true : false;
@@ -40,10 +47,6 @@ if (!isDev) {
   sess.secure = true // serve secure cookies
 }
 
-
-
-require("./config/passport");
-
 mongoose.connect(process.env.MONGO_URI);
 
 //use session config
@@ -61,7 +64,7 @@ app.use(session({
 //optional
 mongoose.connection.on('connected', () => {
   console.log('mongoose connected');
-
+  configPassport();
   //if dev seed the deb
   if(isDev) {
     User.findOne({username: 'admin'}, (err, user) => {
@@ -105,12 +108,10 @@ app.use('/client', express.static('client'));
 app.use('/', routes);
 
 //apis
-// app.use('/api', require('./api/books'));
-// app.use('/api', require('./api/users'));
-app.use('/api', require('./api/ping'));
-app.use('/api', require('./api/protected'));
-app.use('/api', require('./api/user'));
-app.use('/api', require('./api/auth'));
+app.use('/api', ping);
+app.use('/api', protect);
+app.use('/api', user);
+app.use('/api', auth);
 
 // THIS IS THE INTERCEPTION OF ALL OTHER REQ
 // After server routes / static / api

@@ -71,3 +71,5 @@ TODO:
 14. Separate API and Client deployments w/ trust proxy
 
 15. Roles w/ connect-roles
+
+16. Flash messages from express and passport
