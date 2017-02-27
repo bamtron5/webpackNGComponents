@@ -27,8 +27,12 @@ npm serve
 npm start
 ```
 
-Known bugs:
+Additional setup:
 
+Get a twitter API key:
+https://apps.twitter.com/
+
+Known bugs:
 
 1. I am currently unaware of how to wait for express to load before I open the browser.  So refresh your page.
 
