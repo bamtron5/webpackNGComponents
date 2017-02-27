@@ -14,7 +14,7 @@ import DogsListComponent from './dogsList/dogsList.module';
 import D3Component from './d3Demo/d3Demo.module';
 import MoAnimationComponent from './moAnimation/moAnimation.module';
 import AuthComponent from './auth/auth.module';
-
+  
 const name = 'app';
 const dependencies = [
   'ui.router',

@@ -40,21 +40,23 @@ if (!isDev) {
   sess.secure = true // serve secure cookies
 }
 
+
+
+require("./config/passport");
+
+mongoose.connect(process.env.MONGO_URI);
+
 //use session config
 app.use(session({
   cookie: sess,
   secret: process.env.SESSION_SECRET, // can support an array
   store: new MongoStore({
-    url: process.env.MONGO_URI
+    mongooseConnection: mongoose.connection
   }),
   unset: 'destroy',
   resave: false,
   saveUninitialized: false //if nothing has changed.. do not restore cookie
 }));
-
-require("./config/passport");
-
-mongoose.connect(process.env.MONGO_URI);
 
 //optional
 mongoose.connection.on('connected', () => {
