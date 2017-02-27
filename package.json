@@ -13,7 +13,7 @@
     "build:prod": "PROD_ENV=1 npm run build",
     "dev": "tsc && concurrently \"webpack -w\" \"node-sass client/styles/ -o client/styles/ -w\" \"nodemon -r dotenv/config\"",
     "dev:prod": "PROD_ENV=1 npm run dev",
-    "serve": "nodemon",
+    "serve": "nodemon -r dotenv/config",
     "debug": "node -r dotenv/config debug server/bin/www.js",
     "inspect": "node -r dotenv/config --inspect server/bin/www.js",
     "start": "npm run dev"
