@@ -16,7 +16,19 @@ const Config = [
     .state('main', {
       url: '',
       abstract: true,
-      template: '<layout></layout>'
+      template: '<layout></layout>',
+      resolve: {
+        currentSession: ['SessionService', (SessionService) => SessionService.getUser()]
+      }
+    })
+    .state('reload', {
+      url: '/reload',
+      template: 'Reloading... <i class="fa fa-spinner infinite rotateIn"></i>',
+      resolve: {
+        reload: ['$state', '$timeout', ($state, $timeout) => {
+          return $timeout(() => $state.go('home', {}, {reload:true, inherit: false, notify: true}), 100)
+        }]
+      }
     })
 
   $httpProvider.interceptors.push([
@@ -25,7 +37,13 @@ const Config = [
       return $injector.get('authInterceptor');
     }
   ]);
-  $locationProvider.html5Mode(true);
+
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: true,
+    rewriteLinks: false
+  });
+
   $urlRouterProvider.otherwise('/');
 }];
 

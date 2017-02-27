@@ -8,6 +8,8 @@ import * as session from 'express-session';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as debug from 'debug';
+import {User} from './models/User';
+import routes from './routes';
 const MongoStore = require('connect-mongo')(session);
 
 let app = express();
@@ -50,6 +52,8 @@ app.use(session({
   saveUninitialized: false //if nothing has changed.. do not restore cookie
 }));
 
+require("./config/passport");
+
 mongoose.connect(process.env.MONGO_URI);
 
 //optional
@@ -58,17 +62,17 @@ mongoose.connection.on('connected', () => {
 
   //if dev seed the deb
   if(isDev) {
-    // User.findOne({username: 'admin'}, (err, user) => {
-    //   if(err) return;
-    //   if(user) return;
-    //   if(!user)
-    //     var admin = new User();
-    //     admin.email = process.env.ADMIN_EMAIL;
-    //     admin.username = process.env.ADMIN_USERNAME;
-    //     admin.setPassword(process.env.ADMIN_PASSWORD);
-    //     admin.roles = ['user', 'admin'];
-    //     admin.save();
-    // });
+    User.findOne({username: 'admin'}, (err, user) => {
+      if(err) return;
+      if(user) return;
+      if(!user)
+        var admin = new User();
+        admin.email = process.env.ADMIN_EMAIL;
+        admin.username = process.env.ADMIN_USERNAME;
+        admin.setPassword(process.env.ADMIN_PASSWORD);
+        admin.roles = ['user', 'admin'];
+        admin.save();
+    });
 
   }
 });
@@ -96,13 +100,15 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/client', express.static('client'));
 
 //a server route
-// app.use('/', routes);
+app.use('/', routes);
 
 //apis
 // app.use('/api', require('./api/books'));
 // app.use('/api', require('./api/users'));
 app.use('/api', require('./api/ping'));
 app.use('/api', require('./api/protected'));
+app.use('/api', require('./api/user'));
+app.use('/api', require('./api/auth'));
 
 // THIS IS THE INTERCEPTION OF ALL OTHER REQ
 // After server routes / static / api

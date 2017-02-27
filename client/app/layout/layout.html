@@ -3,20 +3,23 @@
     <li class="nav-item">
       <a class="nav-link" ui-sref="home" ui-sref-active="active">Home</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" ui-sref="deckBuilder" ui-sref-active="active">Deck Builder</a>
+    <li class="nav-item" ng-if="!vm.user.username">
+      <a class="nav-link" ui-sref="auth" ui-sref-active="active">Login/SignUp</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" ui-sref="brainEaters" ui-sref-active="active">Brain Eaters</a>
+    <li class="nav-item" ng-if="vm.user.username">
+      <a class="nav-link cursor" ng-click="vm.logout()">Logout</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" ui-sref="dogsList" ui-sref-active="active">Dogs List</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" ui-sref="d3Demo" ui-sref-active="active">D3 Demo</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" ui-sref="moAnimation" ui-sref-active="active">Mo Animation</a>
+    <li role="presentation" class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        Experiments <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a ui-sref="deckBuilder" ui-sref-active="active">Deck Builder</a></li>
+        <li><a ui-sref="brainEaters" ui-sref-active="active">Brain Eaters</a></li>
+        <li><a ui-sref="dogsList" ui-sref-active="active">Dogs List</a></li>
+        <li><a ui-sref="d3Demo" ui-sref-active="active">D3 Demo</a></li>
+        <li><a ui-sref="moAnimation" ui-sref-active="active">Mo Animation</a></li>
+      </ul>
     </li>
   </ul>
 </nav>

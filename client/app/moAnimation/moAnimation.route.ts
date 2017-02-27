@@ -3,7 +3,10 @@ const route = function route($stateProvider) {
     .state('moAnimation', {
       parent: 'main',
       url: '/mo-antimation',
-      template: '<mo-animation></mo-animation>'
+      template: '<mo-animation></mo-animation>',
+      data: {
+        authorizedRoles: ['admin']
+      }
     });
 };
 

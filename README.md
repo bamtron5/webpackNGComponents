@@ -7,8 +7,8 @@ PORT=3000
 MONGO_URI=mongodb://localhost:27017/webpackComponentsOne
 SESSION_SECRET=secretkey
 ROOT_URL=http://localhost:3000
-TWITTER_APP_ID=yourTwitterAppID
-TWITTER_APP_SECRET=yourTwitterAppSecret
+TWITTER_KEY=yourTwitterAppID
+TWITTER_SECRET=yourTwitterAppSecret
 ADMIN_EMAIL=youremail@email.com
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=password
@@ -46,7 +46,7 @@ TODO:
 
 2. API w/ JSON Datasets
 
-3. express-session auth and/or OAUTH authentication
+3. ~~express-session~~ auth
 
 4. AUTH core component and UNAUTH core component
 
@@ -64,7 +64,7 @@ TODO:
 
 11. ~~Hot module loading in webpack dev server. (unlikely)~~
 
-12. Twitter OAuth
+12. ~~Twitter OAuth~~
 
 13. ~~HTML script injection~~
 

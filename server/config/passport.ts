@@ -9,31 +9,31 @@ passport.serializeUser(function(user:IUser, done) {
 });
 
 passport.deserializeUser(function(obj:IUser, done) {
-  User.findOne({_id: obj._id}, {passwordHash: 0, salt: 0}, (err, user) => {
+  User.findOne({_id: obj._id}, {_id: 0, username: 1, roles: 1}, (err, user) => {
     if (err) done(null, {});
     done(null, user);
   });
 });
 
 passport.use(new TwitterStrategy({
-    clientID: process.env.TWITTER_APP_ID,
-    clientSecret: process.env.TWITTER_APP_SECRET,
+    consumerKey: process.env.TWITTER_KEY,
+    consumerSecret: process.env.TWITTER_SECRET,
     callbackURL: process.env.ROOT_URL + "/auth/twitter/callback",
     profileFields: ['id', 'displayName', 'photos']
   },
-  function(accessToken, refreshToken, profile, done) {
+  function(token, tokenSecret, profile, cb) {
     User.findOne({ twitterId: profile.id }, function (err, user) {
       if (user) {
-        return done(err, user);
+        return cb(err, user);
       } else {
         let u = new User();
         u.username = profile.displayName;
         u.twitterId = profile.id;
         u.twitter.name = profile.displayName;
-        u.twitter.token = accessToken;
+        u.twitter.token = token;
         u.save((err) => {
-          if (err) done(err, null);
-          return done(null, u);
+          if (err) cb(err, null);
+          return cb(null, u);
         });
       }
     });

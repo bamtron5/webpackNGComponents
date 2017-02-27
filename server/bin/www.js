@@ -10,7 +10,6 @@ var http = require('http');
 var reload = require('reload');
 var isDev = app.get('env') === 'development' ? true : false;
 
-
 /**
  * Get port from environment and store in Express.
  */
@@ -91,7 +90,6 @@ function onError(error) {
  */
 
 function onListening() {
-
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
