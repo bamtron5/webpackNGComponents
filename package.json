@@ -64,6 +64,7 @@
     "angular-nvd3": "^1.0.9",
     "angular-resource": "^1.6.2",
     "angular-sanitize": "^1.6.2",
+    "angular-toastr": "^2.1.1",
     "angular-ui-router": "^0.4.2",
     "animate.css": "^3.5.2",
     "body-parser": "^1.16.1",
