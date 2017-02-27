@@ -23,17 +23,16 @@ npm start
 
 Known bugs:
 
-1. Webpack analyzer `npm run analyzer:prod` analyzes dev build
 
-2. I am currently unaware of how to wait for express to load before I open the browser.  So refresh your page.
+1. I am currently unaware of how to wait for express to load before I open the browser.  So refresh your page.
 
-3. Windows users seem to have shell PATH issues involving webpack/tsc/node-sass.  Try to use gitbash shell or possibly powershell.  The main fix is just install webpack and typescript globally.
+2. Windows users seem to have shell PATH issues involving webpack/tsc/node-sass.  Try to use gitbash shell or possibly powershell.  The main fix is just install webpack and typescript globally.
 
-4. You probably no longer need bower.  Prove to me that you do.
+3. You probably no longer need bower.  Prove to me that you do.
 
 TODO:
 
-1. Bootstrap
+~~1. Bootstrap~~
 
 2. API w/ JSON Datasets
 
@@ -41,7 +40,7 @@ TODO:
 
 4. AUTH core component and UNAUTH core component
 
-5. Webpack import sass
+~~5. Webpack import sass~~
 
 6. Webpack html template caching
 
@@ -53,8 +52,10 @@ TODO:
 
 10. Websockets server
 
-11. Hot module loading in webpack dev server. (unlikely)
+~~11. Hot module loading in webpack dev server. (unlikely)~~
 
 12. Twitter OAuth
 
-13. HTML script injection
+~~13. HTML script injection~~
+
+14. Separate API and Client deployments
