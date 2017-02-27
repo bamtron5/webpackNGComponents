@@ -1,22 +1,14 @@
 <!DOCTYPE html>
- <html>
+<html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Library App</title>
-    <meta name="description" content=" " />
-    <meta name="author" content=" " />
-    <meta name="HandheldFriendly" content="true" />
-    <meta name="MobileOptimized" content="320" />
-    <!-- Use maximum-scale and user-scalable at your own risk. It disables pinch/zoom. Think about usability/accessibility before including.-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <title></title>
     <base href="/">
-    <!-- all styles including bootstrap and theme -->
-    <link rel="stylesheet" href="/client/styles/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+    <link rel="stylesheet" href="client/styles/styles.css">
   </head>
   <body>
-    <app></app>
-    <script src="dist/bundle.js"></script>
- 	</body>
- </html>
+    <ui-view class="fp"></ui-view>
+    <script src="client/dist/bundle.js"></script>
+  </body>
+</html>

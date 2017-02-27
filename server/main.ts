@@ -106,6 +106,7 @@ app.use('/dist', express.static('dist'));
 // app.use('/api', require('./api/books'));
 // app.use('/api', require('./api/users'));
 app.use('/api', require('./api/ping'));
+app.use('/api', require('./api/protected'));
 
 // THIS IS THE INTERCEPTION OF ALL OTHER REQ
 // After server routes / static / api
@@ -144,4 +145,4 @@ app.use((err, res) => {
   res.status(err['status'] || 500);
 });
 
-export default app;
+export = app;
