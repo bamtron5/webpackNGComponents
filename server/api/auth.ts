@@ -20,6 +20,7 @@ router.post('/auth/register', function(req, res, next) {
 });
 
 router.post('/auth/login', function(req, res, next) {
+  debugger;
   if(!req.body.username && !req.body.password){
     return res.json({message: "Please fill out every field"});
   }

@@ -16,7 +16,7 @@ let initialize = function intialize () {
       done(null, user);
     });
   });
-
+  debugger;
   passport.use(new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,
       consumerSecret: process.env.TWITTER_SECRET,
