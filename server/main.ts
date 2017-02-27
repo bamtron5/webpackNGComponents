@@ -124,6 +124,7 @@ app.get('/*', function(req, res, next) {
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  console.log('asdf');
   let err = new Error('Not Found');
   err['status'] = 404;
   next(err);

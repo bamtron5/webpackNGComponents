@@ -46,7 +46,7 @@ TODO:
 
 2. API w/ JSON Datasets
 
-3. ~~express-session~~ auth
+3. ~~express-session auth~~
 
 4. AUTH core component and UNAUTH core component
 
@@ -69,3 +69,5 @@ TODO:
 13. ~~HTML script injection~~
 
 14. Separate API and Client deployments w/ trust proxy
+
+15. Roles w/ connect-roles
