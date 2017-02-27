@@ -4,8 +4,14 @@ Install some npm globals if you have not done so
 Define your `.env` in the root of your proj
 ```
 PORT=3000
-MONGO_URI=mongodb://localhost:27017/webpackComponents
+MONGO_URI=mongodb://localhost:27017/webpackComponentsOne
 SESSION_SECRET=secretkey
+ROOT_URL=http://localhost:3000
+TWITTER_APP_ID=yourTwitterAppID
+TWITTER_APP_SECRET=yourTwitterAppSecret
+ADMIN_EMAIL=youremail@email.com
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=password
 ```
 
 Commands

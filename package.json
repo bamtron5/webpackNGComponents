@@ -73,6 +73,7 @@
     "font-awesome": "^4.7.0",
     "helmet": "^3.4.0",
     "http": "0.0.0",
+    "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "mo-js": "^0.288.1",
     "mojs-curve-editor": "^1.5.0",
@@ -84,6 +85,7 @@
     "ngstorage": "^0.3.11",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "reload": "^1.1.1",
     "toastr": "^2.1.2",
     "validator": "^6.2.1"
