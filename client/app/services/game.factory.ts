@@ -6,11 +6,11 @@ function gameFactory() {
 
   let initialize = function() {
     vm.instance = new GameService();
-  }
+  };
 
   return {
-    initialize: initialize,
-    vm: vm
+    initialize,
+    vm
   };
 }
 

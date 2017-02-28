@@ -1,19 +1,19 @@
-import * as express from 'express';
-import * as path from 'path';
 import * as bodyParser from 'body-parser';
+import configPassport from './config/passport';
+import * as debug from 'debug';
 import * as ejs from 'ejs';
-import * as mongoose from 'mongoose';
-import * as passport from 'passport';
+import * as express from 'express';
 import * as session from 'express-session';
 import * as helmet from 'helmet';
+import * as mongoose from 'mongoose';
+let MongoStore = require('connect-mongo')(session);
 import * as morgan from 'morgan';
-import * as debug from 'debug';
-import {User} from './models/User';
+import * as passport from 'passport';
+import * as path from 'path';
 import routes from './routes';
-import configPassport from './config/passport';
-const MongoStore = require('connect-mongo')(session);
+import {User} from './models/User';
 
-//routes
+// routes
 import * as ping from './api/ping';
 import * as auth from './api/auth';
 import * as protect from './api/protected';
@@ -24,48 +24,23 @@ const isDev = app.get('env') === 'development' ? true : false;
 
 app.enable('trust proxy');
 
-//helmet (read the docs)
+// helmet (read the docs)
 app.use(helmet());
 
-//logging
+// logging
 app.use(morgan('dev'));
-
-//config req.session your session
-let sess = {
-  maxAge: 172800000, // 2 days
-  secure: false,
-  httpOnly: true
-}
-
-//set to secure in production
-if (!isDev) {
-  sess.secure = true // serve secure cookies
-}
 
 mongoose.connect(process.env.MONGO_URI);
 
-//use session config
-app.use(session({
-  cookie: sess,
-  secret: process.env.SESSION_SECRET, // can support an array
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  }),
-  unset: 'destroy',
-  resave: false,
-  saveUninitialized: false //if nothing has changed.. do not restore cookie
-}));
-
-//optional
 mongoose.connection.on('connected', () => {
   console.log('mongoose connected');
   configPassport();
-  //if dev seed the deb
-  if(isDev) {
+  // if dev seed the deb
+  if (isDev) {
     User.findOne({username: 'admin'}, (err, user) => {
-      if(err) return;
-      if(user) return;
-      if(!user)
+      if (err) return;
+      if (user) return;
+      if (!user)
         var admin = new User();
         admin.email = process.env.ADMIN_EMAIL;
         admin.username = process.env.ADMIN_USERNAME;
@@ -73,36 +48,53 @@ mongoose.connection.on('connected', () => {
         admin.roles = ['user', 'admin'];
         admin.save();
     });
-
   }
 });
 
-//optional
-mongoose.connection.on('error', (e) => {
-  throw new Error(e);
-});
+// config req.session
+let sess = {
+  maxAge: 172800000, //  2 days
+  secure: false,
+  httpOnly: true
+};
 
-//config for passport login
-// require("./config/passport");
+// set to secure in production
+if (!isDev) {
+  sess.secure = true;
+}
+
+// use session config
+app.use(
+  session({
+    cookie: sess,
+    secret: process.env.SESSION_SECRET, // can support an array
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    }),
+    unset: 'destroy',
+    resave: false,
+    saveUninitialized: false // if nothing has changed.. do not restore cookie
+  })
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
-//config bodyParser
+// config bodyParser
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-//static routing
+// static routing
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 app.use('/client', express.static('client'));
 
-//a server route
+// a server route
 app.use('/', routes);
 
-//apis
+// apis
 app.use('/api', ping);
 app.use('/api', protect);
 app.use('/api', user);
@@ -128,7 +120,6 @@ app.use((req, res, next) => {
   next(err);
 });
 
-
 // development error handler
 // will print stacktrace
 if (isDev) {
@@ -136,7 +127,7 @@ if (isDev) {
     res.status(err['status'] || 500);
     res.render('error', {
       message: err['message'],
-      error: err //STACK TRACE
+      error: err // STACK TRACE
     });
   });
 }
@@ -146,4 +137,4 @@ app.use((err, res) => {
   res.status(err['status'] || 500);
 });
 
-export default app;
+export = app;

@@ -13,22 +13,21 @@ router.post('/auth/register', function(req, res, next) {
   user.email = req.body.email;
   user.setPassword(req.body.password);
   user.save(function(err, user) {
-    //this is a validation error so 400 bad req
-    if(err) return next({message: 'user did not save', error: err});
-    return res.json({message: "Registration complete."});
+    // this is a validation error so 400 bad req
+    if (err) return next({message: 'user did not save', error: err});
+    if (user) return res.json({message: 'Registration complete.'});
   });
 });
 
 router.post('/auth/login', function(req, res, next) {
-  debugger;
-  if(!req.body.username && !req.body.password){
-    return res.json({message: "Please fill out every field"});
+  if (!req.body.username && !req.body.password) {
+    return res.json({message: 'Please fill out every field'});
   }
 
   passport.authenticate('local', {session: true}, function(err, user, info) {
-    if(err) return next(err);
-    if(!user) return res.status(401).json({message: 'failed login'});
-    if(user) {
+    if (err) return next(err);
+    if (!user) return res.status(401).json({message: 'failed login'});
+    if (user) {
       req.logIn(user, (err) => {
         if (err) return next({message: 'login failed', error: err});
         req.session.save(function (err){

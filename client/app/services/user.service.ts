@@ -1,8 +1,8 @@
 import * as angular from 'angular';
 
 export class UserServiceClass {
-  UserResource;
-  AuthResource;
+  public UserResource;
+  public AuthResource;
 
   constructor(
     private $resource: ng.resource.IResourceService,
@@ -12,12 +12,12 @@ export class UserServiceClass {
     this.AuthResource = $resource('/api/auth/:action');
   }
 
-  public login(user:{username:string, password:string}) {
-    return this.AuthResource.save({action:'login'}, user).$promise;
+  public login(user: {username: string, password: string}) {
+    return this.AuthResource.save({action: 'login'}, user).$promise;
   }
 
-  public register(user:{username:string, password:string, email:string}) {
-    return this.AuthResource.save({action:'register'}, user).$promise;
+  public register(user: { username: string, password: string, email: string}) {
+    return this.AuthResource.save({action: 'register'}, user).$promise;
   }
 
   public getCurrentUser() {
@@ -25,11 +25,11 @@ export class UserServiceClass {
   }
 
   public logout() {
-    return this.AuthResource.get({action:'logout'}).$promise;
+    return this.AuthResource.get({action: 'logout'}).$promise;
   }
 
-  public getUser(name:string) {
-    return this.UserResource.get({name:name}).$promise;
+  public getUser(name: string) {
+    return this.UserResource.get({name}).$promise;
   }
 }
 

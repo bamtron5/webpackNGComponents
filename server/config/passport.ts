@@ -6,21 +6,21 @@ import {User, IUser} from '../models/User';
 import * as jwt from 'jsonwebtoken';
 
 let initialize = function intialize () {
-  passport.serializeUser(function(user:IUser, done) {
+  passport.serializeUser(function(user: IUser, done) {
     done(null, user);
   });
 
-  passport.deserializeUser(function(obj:IUser, done) {
+  passport.deserializeUser(function(obj: IUser, done) {
     User.findOne({_id: obj._id}, {_id: 0, username: 1, roles: 1}, (err, user) => {
       if (err) done(null, {});
       done(null, user);
     });
   });
-  debugger;
+
   passport.use(new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,
       consumerSecret: process.env.TWITTER_SECRET,
-      callbackURL: process.env.ROOT_URL + "/auth/twitter/callback",
+      callbackURL: process.env.ROOT_URL + '/auth/twitter/callback',
       profileFields: ['id', 'displayName', 'photos']
     },
     function(token, tokenSecret, profile, cb) {
@@ -43,11 +43,11 @@ let initialize = function intialize () {
   ));
 
   passport.use(new LocalStrategy(function(username: string, password: string, done) {
-    User.findOne({ username: username }).select('+passwordHash +salt')
+    User.findOne({ username }).select('+passwordHash +salt')
       .exec(function(err, user) {
-        if(err) return done(err);
-        if(!user) return done(null, false, { message: 'Incorrect username.' });
-        if(!user.validatePassword(password)) return done(null, false, { message: 'Password does not match.' });
+        if (err) return done(err);
+        if (!user) return done(null, false, { message: 'Incorrect username.' });
+        if (!user.validatePassword(password)) return done(null, false, { message: 'Password does not match.' });
         user.passwordHash = undefined;
         user.salt = undefined;
         return done(null, user);

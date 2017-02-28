@@ -19,7 +19,7 @@ export interface IUser extends mongoose.Document {
   setPassword(password: string): boolean;
   validatePassword(password: string): boolean;
   generateJWT(): JsonWebKey;
-  roles: Array<string>;
+  roles: [string];
 }
 
 let UserSchema = new mongoose.Schema({
@@ -59,4 +59,4 @@ UserSchema.method('generateJWT', function() {
   }, process.env.JWT_SECRET, {expiresIn: '2 days'});
 });
 
-export const User = mongoose.model<IUser>("User", UserSchema);
+export const User = mongoose.model<IUser>('User', UserSchema);

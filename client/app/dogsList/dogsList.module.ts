@@ -8,7 +8,7 @@ const template = '/client/app/dogsList/dogsList.html';
 export default angular.module('app.dogsList', [])
   .component(name, {
     templateUrl: template,
-    controller: controller,
+    controller,
     controllerAs: 'vm'
   })
   .config(route)

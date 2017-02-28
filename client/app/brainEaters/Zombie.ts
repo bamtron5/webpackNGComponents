@@ -1,8 +1,7 @@
 import Tile from './Tile';
 
 class Zombie extends Tile {
-  type:string = 'Zombie';
+  public type: string = 'Zombie';
 }
 
 export default Zombie;
- 

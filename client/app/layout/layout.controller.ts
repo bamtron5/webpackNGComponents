@@ -1,24 +1,24 @@
 import * as angular from 'angular';
-/// <reference types="angular-toastr" />
+
 class LayoutController {
-  user;
+  public user;
   constructor(
     SessionService,
     private UserService,
-    private $state:ng.ui.IStateService,
+    private $state: ng.ui.IStateService,
     private toastr
   ) {
     this.user = SessionService.getUser();
   }
 
-  logout() {
+  public logout() {
     this.UserService.logout()
       .then((response) => {
-        this.toastr.info(`${this.user.username} has logged out.`, 'Goodbye')
+        this.toastr.info(`${this.user.username} has logged out.`, 'Goodbye');
         this.$state.go('reload');
       })
       .catch((e) => {
-        this.toastr.error('Unable to logout.','Error');
+        this.toastr.error('Unable to logout.', 'Error');
       });
   }
 }

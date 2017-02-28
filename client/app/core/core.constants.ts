@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 
-//MAINTAIN ALPHABETICALLY
+// MAINTAIN ALPHABETICALLY
 export default angular.module('app.core.constants', [])
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',

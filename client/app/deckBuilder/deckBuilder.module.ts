@@ -8,7 +8,7 @@ const template = '/client/app/deckBuilder/deckBuilder.html';
 export default angular.module('app.deckBuilder', [])
   .component(name, {
     templateUrl: template,
-    controller: controller,
+    controller,
     controllerAs: 'vm'
   })
   .config(route)

@@ -3,7 +3,7 @@ import * as MojsPlayer from 'mojs-player';
 import * as mojs from 'mo-js';
 
 export class MoAnimationController {
-  shape;
+  public shape;
   constructor(
 
   ) {
@@ -28,11 +28,8 @@ export class MoAnimationController {
       // easing: mojsCurve.getEasing()
     });
     const mojsPlayer = new MojsPlayer({ add: this.shape });
-
-
   }
 }
 MoAnimationController.$inject = [];
-
 
 export default MoAnimationController;

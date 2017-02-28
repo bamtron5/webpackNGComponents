@@ -5,13 +5,15 @@ export default [
   'SessionService',
   '$state',
   'AUTH_EVENTS',
+  'toastr',
   function run(
     $rootScope,
     UserService,
     $sessionStorage,
     SessionService,
     $state,
-    AUTH_EVENTS
+    AUTH_EVENTS,
+    toastr
   ) {
     $rootScope.$on('$stateChangeStart', (event, next) => {
       UserService.getCurrentUser().then((user) => {
@@ -24,7 +26,7 @@ export default [
         let authorizedRoles = next.data['authorizedRoles'] ? next.data['authorizedRoles'] : false;
         if (authorizedRoles && !SessionService.isAuthorized(authorizedRoles)) {
           event.preventDefault();
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+          toastr.warning('I can\'t let you do that.', `I'm sorry Michael`);
         }
       }
     });

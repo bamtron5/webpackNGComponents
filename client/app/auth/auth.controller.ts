@@ -1,23 +1,23 @@
 import {UserServiceClass} from '../services/user.service';
 
 export class AuthController {
-  user;
+  public user;
   constructor(
-    private UserService:UserServiceClass,
+    private UserService: UserServiceClass,
     private AUTHENTICATION_STATUS,
-    private $state:ng.ui.IStateService,
+    private $state: ng.ui.IStateService,
     private toastr
   ) {
 
   }
 
-  login() {
+  public login() {
     var toast;
     this.UserService.login(this.user)
       .then((response) => {
         if (response.message === this.AUTHENTICATION_STATUS.success) {
           toast = this.toastr.success(`Welcome, ${this.user.username}`, this.AUTHENTICATION_STATUS.success);
-          this.$state.go('reload', toast);
+          this.$state.go('reload');
         } else {
           this.toastr.error('Your credentials are wrong.', 'Error');
         }
@@ -27,6 +27,5 @@ export class AuthController {
   }
 }
 AuthController.$inject = ['UserService', 'AUTHENTICATION_STATUS', '$state', 'toastr'];
-
 
 export default AuthController;

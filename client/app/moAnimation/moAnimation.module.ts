@@ -9,7 +9,7 @@ const template = '/client/app/moAnimation/moAnimation.html';
 export default angular.module('app.moAnimation', [])
   .component(name, {
     templateUrl: template,
-    controller: controller,
+    controller,
     controllerAs: 'vm'
   })
   .config(route)

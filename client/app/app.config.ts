@@ -6,10 +6,10 @@ const Config = [
   '$urlRouterProvider',
   '$httpProvider',
   (
-    $locationProvider:ng.ILocationProvider,
-    $stateProvider:angular.ui.IStateProvider,
-    $urlRouterProvider:ng.ui.IUrlRouterProvider,
-    $httpProvider:ng.IHttpProvider
+    $locationProvider: ng.ILocationProvider,
+    $stateProvider: angular.ui.IStateProvider,
+    $urlRouterProvider: ng.ui.IUrlRouterProvider,
+    $httpProvider: ng.IHttpProvider
   ) => {
 
   $stateProvider
@@ -28,10 +28,10 @@ const Config = [
         reload: [
           '$state',
           '$timeout',
-          ($state, $timeout) => $timeout(() => $state.go('home', {}, {reload:true, inherit: false, notify: true}), 100)
+          ($state, $timeout) => $timeout(() => $state.go('home', {}, {reload: true, inherit: false, notify: true}), 100)
         ]
       }
-    })
+    });
 
   $httpProvider.interceptors.push([
     '$injector',

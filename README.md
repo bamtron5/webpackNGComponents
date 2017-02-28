@@ -1,3 +1,6 @@
+Before you commit, lint:
+`npm run build`
+
 Install some npm globals if you have not done so
 `npm i -g typescript webpack nodemon`
 
@@ -16,15 +19,19 @@ ADMIN_PASSWORD=password
 
 Commands
 ```
+npm start
+npm run preinstall
+npm run postinstall
 npm run analyze
 npm run build:client
 npm run build:sass
 npm run build
 npm run build:prod
 npm run dev
-npm run dev:prod
-npm serve
-npm start
+npm run lint
+npm run serve
+npm run debug
+npm run inspect
 ```
 
 Additional setup:
@@ -36,9 +43,8 @@ Known bugs:
 
 1. I am currently unaware of how to wait for express to load before I open the browser.  So refresh your page.
 
-2. Windows users seem to have shell PATH issues involving webpack/tsc/node-sass.  Try to use gitbash shell or possibly powershell.  The main fix is just install webpack and typescript globally.
+2. Websockets `reload` package is not `browser sync` like `lite-server`.  It will light up your console.
 
-3. You probably no longer need bower.  Prove to me that you do.
 
 TODO:
 

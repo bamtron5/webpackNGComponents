@@ -8,7 +8,7 @@ const template = '/client/app/auth/auth.html';
 export default angular.module('app.auth', [constants])
   .component(name, {
     templateUrl: template,
-    controller: controller,
+    controller,
     controllerAs: 'vm'
   })
   .config(route)

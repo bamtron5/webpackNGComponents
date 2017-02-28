@@ -3,12 +3,12 @@ import route from './home.route';
 import controller from './home.controller';
 
 const name = 'home';
-const template = '/client/app/home/home.html'
+const template = '/client/app/home/home.html';
 
 export default angular.module('app.home', [])
   .component(name, {
     templateUrl: template,
-    controller: controller,
+    controller,
     controllerAs: 'vm'
   })
   .config(route)

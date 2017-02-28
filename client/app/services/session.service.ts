@@ -9,18 +9,18 @@ export class SessionServiceClass {
     this.user = this.getUser();
   }
 
-  create(user) {
+  public create(user) {
     this.$sessionStorage['user'] = user;
   }
 
-  isAuthenticated() {
+  public isAuthenticated() {
     let user = this.getUser();
     return !!user['username'];
   }
 
-  isAuthorized(roles) {
+  public isAuthorized(roles) {
     let user = this.getUser();
-    if (!user['roles']){
+    if (!user['roles']) {
       return false;
     }
 
@@ -29,7 +29,7 @@ export class SessionServiceClass {
     }
 
     return roles.some((v, k) => {
-      for(let i in user['roles']) {
+      for (let i in user['roles']) {
         if (user['roles'][i] === v) {
           return true;
         }
@@ -41,7 +41,7 @@ export class SessionServiceClass {
     return this.$sessionStorage['user'] || {};
   }
 
-  destroy() {
+  public destroy() {
     this.$sessionStorage.$reset();
     this.$sessionStorage['user'] = {};
   }

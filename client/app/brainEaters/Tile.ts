@@ -3,24 +3,24 @@ import Point from './Point';
 import gameFactory from '../services/game.factory';
 
 interface ITile {
-  unit:number;
-  image:HTMLImageElement,
-  x:number,
-  y:number,
-  w:number,
-  h:number,
-  type:string
+  unit: number;
+  image: HTMLImageElement;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  type: string;
 }
 
 class Tile implements ITile {
-  unit:number = 50;
-  image:HTMLImageElement;
-  x:number;
-  y:number;
-  w:number;
-  h:number;
-  type:string;
-  game = gameFactory().vm.instance;
+  public unit: number = 50;
+  public image: HTMLImageElement;
+  public x: number;
+  public y: number;
+  public w: number;
+  public h: number;
+  public type: string;
+  public game = gameFactory().vm.instance;
   constructor(
     ...args
   ) {
@@ -43,17 +43,17 @@ class Tile implements ITile {
     };
   }
 
-  drawTile() {
+  public drawTile() {
     this.game.hashTable.set(JSON.stringify(new Point(this.x, this.y)), this.type);
     this.game.context.drawImage(this.image, this.x, this.y, this.w, this.h);
   }
 
-  clearTile() {
+  public clearTile() {
     this.game.hashTable.delete(JSON.stringify(new Point(this.x, this.y)));
     this.game.context.clearRect(this.x, this.y, this.w, this.h);
   }
 
-  moveUp() {
+  public moveUp() {
     if (this.canMoveImage('up')) {
       this.clearTile();
       this.y -= this.unit;
@@ -61,7 +61,7 @@ class Tile implements ITile {
     }
   }
 
-  moveDown() {
+  public moveDown() {
     if (this.canMoveImage('down')) {
       this.clearTile();
       this.y += this.unit;
@@ -69,7 +69,7 @@ class Tile implements ITile {
     }
   }
 
-  moveLeft() {
+  public moveLeft() {
     if (this.canMoveImage('left')) {
       this.clearTile();
       this.x -= this.unit;
@@ -77,7 +77,7 @@ class Tile implements ITile {
     }
   }
 
-  moveRight() {
+  public moveRight() {
     if (this.canMoveImage('right')) {
       this.clearTile();
       this.x += this.unit;
@@ -85,8 +85,8 @@ class Tile implements ITile {
     }
   }
 
-  canMoveImage(direction:string) {
-    switch(direction) {
+  public canMoveImage(direction: string) {
+    switch (direction) {
       case 'up':
         let destUp = JSON.stringify(new Point(this.x, this.y - this.unit));
         return !this.game.hashTable.get(destUp) ? this.y > 0 : false;
@@ -99,6 +99,8 @@ class Tile implements ITile {
       case 'right':
         let destRight = JSON.stringify(new Point(this.x + this.unit, this.y));
         return !this.game.hashTable.get(destRight) ? (this.x + this.w) < this.game.c.width : false;
+      default:
+        break;
     }
   }
 }

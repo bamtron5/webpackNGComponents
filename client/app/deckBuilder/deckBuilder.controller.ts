@@ -1,7 +1,7 @@
 class DeckBuilderController {
-  title:string;
-  formData:FormData;
-  phonePattern:string = '\\d+';
+  public title: string;
+  public formData: FormData;
+  public phonePattern: string = '\\d+';
   constructor(
     DECK_BUILDER_CONFIG
   ) {
@@ -9,12 +9,12 @@ class DeckBuilderController {
 
   }
 
-  submit() {
+  public submit() {
     console.log(this.formData);
     console.log('submitted');
   }
 
-  isPhone() {
+  public isPhone() {
     console.log('isPhone');
     return false;
   }

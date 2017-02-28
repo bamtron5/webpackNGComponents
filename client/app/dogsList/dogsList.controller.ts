@@ -1,19 +1,19 @@
 import {DogsServiceClass} from '../services/dogs.service';
 
 export class DogsListController {
-  dogs;
-  loaded:boolean = false;
+  public dogs;
+  public loaded: boolean = false;
   // host = 'http://giphy.com'
   constructor(
-    private DogsService:DogsServiceClass,
-    $timeout:ng.ITimeoutService
+    private DogsService: DogsServiceClass,
+    $timeout: ng.ITimeoutService
   ) {
     $timeout(() => {
       this.getDogs();
-    }, 2000)
+    }, 2000);
   }
 
-  getDogs() {
+  public getDogs() {
     this.DogsService.getDogs()
       .then((dogs) => {
         this.dogs = dogs.data.data;
@@ -21,10 +21,9 @@ export class DogsListController {
         console.log(e);
       }).finally(() => {
         this.loaded = true;
-      })
+      });
   }
 }
 DogsListController.$inject = ['DogsService', '$timeout'];
-
 
 export default DogsListController;
