@@ -2,6 +2,7 @@ import {UserServiceClass} from '../services/user.service';
 
 export class AuthController {
   public user;
+  public newUser;
   constructor(
     private UserService: UserServiceClass,
     private AUTHENTICATION_STATUS,
@@ -10,13 +11,21 @@ export class AuthController {
   ) {
 
   }
+  public register () {
+    this.UserService.register(this.newUser)
+      .then((response) => {
+        this.toastr.success(`Please sign in ${this.newUser.username}`, `Fantastic.`);
 
+      })
+      .catch((e) => {
+        this.toastr.warning(`${e.message}`, `Nope.`);
+      });
+  }
   public login() {
-    var toast;
     this.UserService.login(this.user)
       .then((response) => {
         if (response.message === this.AUTHENTICATION_STATUS.success) {
-          toast = this.toastr.success(`Welcome, ${this.user.username}`, this.AUTHENTICATION_STATUS.success);
+          this.toastr.success(`Welcome, ${this.user.username}`, this.AUTHENTICATION_STATUS.success);
           this.$state.go('reload');
         } else {
           this.toastr.error('Your credentials are wrong.', 'Error');
