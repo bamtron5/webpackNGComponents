@@ -14,7 +14,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['', '.js', '.ts']
   },
   devtool: 'inline-source-map',
   plugins: [
@@ -30,6 +30,15 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.ts?$/,
+        loader: "ts-loader",
+        exclude: ['/node_modules/', 'client/app/**/*.ts']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]
