@@ -8,3 +8,4 @@ dist
 *.map
 *.map.js
 !server/bin/www.js
+coverage
