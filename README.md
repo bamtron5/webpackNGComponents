@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/github/bamtron5/webpackngcomponents/badge.svg)](https://snyk.io/test/github/bamtron5/webpackngcomponents)
+
 Before you commit, lint:
 `npm run build`
 
