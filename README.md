@@ -1,4 +1,6 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/bamtron5/webpackngcomponents/badge.svg)](https://snyk.io/test/github/bamtron5/webpackngcomponents)
+[![bitHound Dependencies](https://www.bithound.io/github/bamtron5/webpackNGComponents/badges/dependencies.svg)](https://www.bithound.io/github/bamtron5/webpackNGComponents/master/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/bamtron5/webpackNGComponents/badges/devDependencies.svg)](https://www.bithound.io/github/bamtron5/webpackNGComponents/master/dependencies/npm)
 
 Before you commit, lint:
 `npm run build`

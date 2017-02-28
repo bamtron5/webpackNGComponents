@@ -15,7 +15,7 @@
     "lint": "tslint -e node_modules './server/**/**/*.ts' './client/**/**/*.ts'",
     "serve": "nodemon -r dotenv/config",
     "debug": "node -r dotenv/config debug server/bin/www.js",
-    "inspect": "node -r dotenv/config --inspect server/bin/www.js",
+    "inspect": "nodemon -r dotenv/config --inspect server/bin/www.js",
     "start": "npm run dev"
   },
   "author": "Brandon Morrison",
