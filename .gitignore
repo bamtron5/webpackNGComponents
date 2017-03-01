@@ -8,3 +8,6 @@ dist
 *.map
 *.map.js
 !server/bin/www.js
+coverage
+!webpack.config.js
+!karma.conf.js

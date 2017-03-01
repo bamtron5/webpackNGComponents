@@ -22,7 +22,7 @@ import * as user from './api/user';
 let app = express();
 const isDev = app.get('env') === 'development' ? true : false;
 
-app.enable('trust proxy');
+app.set('trust proxy', 1);
 
 // helmet (read the docs)
 app.use(helmet());
