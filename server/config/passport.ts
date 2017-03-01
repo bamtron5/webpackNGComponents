@@ -1,9 +1,11 @@
 import * as passport from 'passport';
 import * as mongoose from 'mongoose';
-let LocalStrategy = require('passport-local').Strategy;
-let TwitterStrategy = require('passport-twitter').Strategy;
 import {User, IUser} from '../models/User';
 import * as jwt from 'jsonwebtoken';
+let LocalStrategy = require('passport-local').Strategy;
+let TwitterStrategy = require('passport-twitter').Strategy;
+let JwtStrategy = require('passport-jwt').Strategy;
+let ExtractJwt = require('passport-jwt').ExtractJwt;
 
 let initialize = function intialize () {
   passport.serializeUser(function(user: IUser, done) {
@@ -16,6 +18,20 @@ let initialize = function intialize () {
       done(null, user);
     });
   });
+
+  let fromHeader = ExtractJwt.fromAuthHeader();
+  let opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    secretOrKey: process.env.JWT_SECRET,
+    audience: process.env.ROOT_URL
+  };
+
+  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    User.findOne({id: jwt_payload.sub}, function(err, user) {
+      done(null, user);
+
+    });
+  }));
 
   passport.use(new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,

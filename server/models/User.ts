@@ -54,9 +54,7 @@ UserSchema.method('validatePassword', function(password) {
 
 UserSchema.method('generateJWT', function() {
   return jwt.sign({
-    _id: this._id,
-    username: this.username,
-    email: this.email
+    username: this.username
   }, process.env.JWT_SECRET, {expiresIn: '2 days'});
 });
 

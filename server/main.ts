@@ -1,5 +1,6 @@
 import * as bodyParser from 'body-parser';
 import configPassport from './config/passport';
+import * as cookieParser from 'cookie-parser';
 import * as debug from 'debug';
 import * as ejs from 'ejs';
 import * as express from 'express';
@@ -26,6 +27,8 @@ app.set('trust proxy', 1);
 
 // helmet (read the docs)
 app.use(helmet());
+
+app.use(cookieParser());
 
 // logging
 app.use(morgan('dev'));

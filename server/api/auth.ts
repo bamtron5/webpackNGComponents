@@ -2,7 +2,9 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
+import * as simple from 'jwt-simple';
 import {User} from '../models/User';
+import * as moment from 'moment';
 let router = express.Router();
 
 router.get('/auth/currentuser', (req, res, next) => res.json(req.user || {}));
@@ -28,12 +30,12 @@ router.post('/auth/login', function(req, res, next) {
     if (err) return next(err);
     if (!user) return res.status(401).json({message: 'failed login'});
     if (user) {
+      let encoded = user.generateJWT();
+      console.log(`userJwt: ${encoded}`);
       req.logIn(user, (err) => {
         if (err) return next({message: 'login failed', error: err});
-        req.session.save(function (err){
-          if (err) return next({message: 'session failed', error: err});
-          return res.json({message: 'login successful'});
-        });
+        res.cookie('jwt', encoded, '90000');
+        return res.json({message: 'login successful'});
       });
     }
   })(req, res, next);
