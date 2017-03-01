@@ -4,13 +4,13 @@ var analyze = JSON.parse(process.env.ANALYZE || '0')
 var path = require('path')
 var OpenBrowserPlugin = require('open-browser-webpack-plugin')
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
+console.log(__dirname);
 module.exports = {
   entry: {
-    app: './client/app/app.module.ts'
+    app: __dirname + '/../client/app/app.module.ts'
   },
   output: {
-    path: __dirname + '/client/dist',
+    path: __dirname + '/../client/dist',
     filename: 'bundle.js'
   },
   resolve: {
@@ -30,6 +30,15 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.ts?$/,
+        loader: "ts-loader",
+        exclude: ['/node_modules/']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]

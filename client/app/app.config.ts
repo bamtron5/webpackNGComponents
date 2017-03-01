@@ -42,7 +42,7 @@ const Config = [
 
   $locationProvider.html5Mode({
     enabled: true,
-    requireBase: true,
+    requireBase: true, // because of a karma.conf issue
     rewriteLinks: false
   });
 
