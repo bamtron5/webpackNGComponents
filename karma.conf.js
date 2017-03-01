@@ -9,7 +9,6 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine','karma-typescript'],
 
     mime: {
       'text/x-typescript': ['ts']
@@ -17,22 +16,31 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      // 'node_modules/jasmine-core/jasmine-core.js',
-      'client/app/auth/auth.spec.js',
+      'node_modules/jasmine-core/lib/jasmine-core/jasmine.js',
+      'node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js',
+      'node_modules/jasmine-core/lib/jasmine-core/boot.js',
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'client/dist/bundle.js',
+      'client/app/**/*.spec.ts'
     ],
 
+    // customContextFile: 'test/unit/context.html',
+    // customDebugFile:   'test/unit/debug.html',
+
+    frameworks: ['jasmine'],
+
+
     webpack: {
+      entry: webpackConfig.entry,
       module: {
+        rules: webpackConfig.module.rules,
         loaders: [
           { test: /\.scss$/, loader: 'null-loader' },
           { test: /\.css$/, loader: 'null-loader' }
         ]
       },
-      target: 'node',
-      node: {
-        __dirname: true,
-        fs: 'empty'
-      },
+
       devtool: 'inline-source-map'
     },
 
@@ -45,13 +53,15 @@ module.exports = function(config) {
       'karma-coverage',
       'karma-chrome-launcher',
       'karma-webpack',
-      'karma-typescript'
+      'karma-typescript',
+      'karma-typescript-preprocessor',
+      'karma-requirejs'
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'client/app/auth/auth.spec.js': ['webpack']
+      'client/app/**/*.spec.ts': ['webpack']
     },
 
     // test results reporter to use

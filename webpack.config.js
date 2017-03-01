@@ -33,7 +33,7 @@ module.exports = {
       {
         test: /\.ts?$/,
         loader: "ts-loader",
-        exclude: ['/node_modules/', 'client/app/**/*.ts']
+        exclude: ['/node_modules/']
       },
       {
         test: /\.json$/,
