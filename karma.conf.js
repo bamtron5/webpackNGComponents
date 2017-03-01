@@ -1,4 +1,5 @@
-var webpackConfig = require('./webpack.config');
+var webpackConfig = require('./webpack/webpack.config');
+var testConfig = require('./webpack/test.config.js');
 
 module.exports = function(config) {
   config.set({
@@ -16,13 +17,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/jasmine-core/lib/jasmine-core/jasmine.js',
-      'node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js',
-      'node_modules/jasmine-core/lib/jasmine-core/boot.js',
-      'node_modules/angular/angular.js',
-      'node_modules/angular-mocks/angular-mocks.js',
       'client/dist/bundle.js',
-      'client/app/**/*.spec.ts'
+      'client/dist/test.js'
     ],
 
     customContextFile: 'server/views/context.html',
@@ -40,7 +36,6 @@ module.exports = function(config) {
           { test: /\.css$/, loader: 'null-loader' }
         ]
       },
-
       devtool: 'inline-source-map'
     },
 
@@ -55,7 +50,8 @@ module.exports = function(config) {
       'karma-webpack',
       'karma-typescript',
       'karma-typescript-preprocessor',
-      'karma-requirejs'
+      'karma-requirejs',
+      'karma-jasmine-html-reporter'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -67,7 +63,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'kjhtml'],
 
     // karmaTypescriptConfig: {
     //   tsconfig: "./tsconfig.json"

@@ -2,6 +2,7 @@ import {UserServiceClass} from '../services/user.service';
 
 export class AuthController {
   public user;
+  public thing = true;
   constructor(
     private UserService: UserServiceClass,
     private AUTHENTICATION_STATUS,
@@ -13,6 +14,7 @@ export class AuthController {
 
   public login() {
     var toast;
+    this.thing = false;
     this.UserService.login(this.user)
       .then((response) => {
         if (response.message === this.AUTHENTICATION_STATUS.success) {
