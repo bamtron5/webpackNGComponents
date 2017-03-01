@@ -25,8 +25,8 @@ module.exports = function(config) {
       'client/app/**/*.spec.ts'
     ],
 
-    // customContextFile: 'test/unit/context.html',
-    // customDebugFile:   'test/unit/debug.html',
+    customContextFile: 'server/views/context.html',
+    customDebugFile:   'server/views/debug.html',
 
     frameworks: ['jasmine'],
 

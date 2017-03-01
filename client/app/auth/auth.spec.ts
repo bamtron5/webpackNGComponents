@@ -1,27 +1,30 @@
 /// <reference types="jasmine" />
-/// <reference types="angular" />
+/// <reference types="angular-mocks" />
+
+// Do not import twice, just declare
+declare var angular: ng.IAngularStatic;
 
 import controller from './auth.controller';
 describe('Auth Controller', function() {
-  var creds,
-  createCtrl,
-  scope,
-  $controller,
-  $compile,
-  fetchedLogin,
-  UserService,
-  $q,
-  login,
-  ctrl,
-  $cookies,
-  deferred,
-  $httpBackend,
-  promise,
-  resolvedValue,
-  $rootScope,
-  token,
-  response,
-  $state;
+  let creds;
+  let createCtrl;
+  let scope;
+  let $controller;
+  let $compile;
+  let fetchedLogin;
+  let UserService;
+  let $q;
+  let login;
+  let ctrl;
+  let $cookies;
+  let deferred;
+  let $httpBackend;
+  let promise;
+  let resolvedValue;
+  let $rootScope;
+  let token;
+  let response;
+  let $state;
 
   var module = angular.mock.module;
   // DEFINE MODULE MOCKS
@@ -40,13 +43,13 @@ describe('Auth Controller', function() {
       get: () => {},
       set: () => {},
       put: () => {}
-    }
+    };
 
     $provide.value('UserService', UserServiceMock);
     $provide.value('$cookies', $cookiesMock);
   }));
 
-  //INJECT CONTROLLER w/ $controller, fresh $scope, and services
+  // INJECT CONTROLLER w/ $controller, fresh $scope, and services
   beforeEach(inject(
   function (
     _$controller_,
