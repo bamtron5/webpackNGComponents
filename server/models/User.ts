@@ -23,7 +23,7 @@ export interface IUser extends mongoose.Document {
 }
 
 let UserSchema = new mongoose.Schema({
-  username: { type: String, lowercase: true, unique: true},
+  username: { type: String, unique: true},
   email: {
     type: String,
     unique: true,
@@ -48,6 +48,7 @@ UserSchema.method('setPassword', function(password) {
 
 UserSchema.method('validatePassword', function(password) {
   let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+  console.log(`hash === this.passwordHash ${hash === this.passwordHash} hash = ${hash}`);
   return (hash === this.passwordHash);
 });
 

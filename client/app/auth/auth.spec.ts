@@ -129,7 +129,7 @@ export default describe('Auth Controller', function() {
       ctrl.login(ctrl.user);
     });
 
-    it('should set thing to false', function () {
+    xit('should set thing to false', function () {
       expect(ctrl.thing).toBe(false);
     });
 
