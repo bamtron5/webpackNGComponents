@@ -8,7 +8,7 @@ import {Car} from '../models/Car';
 import {sanitizeQ} from '../lib/sanitize';
 let router = express.Router();
 
-//My Expected qs for cars
+// My Expected qs for cars
 let exqCars = [
   'condition',
   'max',
