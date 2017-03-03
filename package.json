@@ -5,7 +5,7 @@
   "main": "server/bin/www.js",
   "scripts": {
     "preinstall": "npm i webpack typescript nodemon",
-    "postinstall": "tsc && webpack --config webpac/webpack.config.js",
+    "postinstall": "tsc && webpack --config webpack/webpack.config.js",
     "analyze": "ANALYZE=1 npm run build",
     "build:client": "webpack --config webpack/webpack.config.js",
     "build:sass": "node-sass ./client/styles/ -o ./client/styles/",
