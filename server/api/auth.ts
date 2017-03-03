@@ -2,7 +2,6 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
-import * as simple from 'jwt-simple';
 import {User} from '../models/User';
 import * as moment from 'moment';
 let router = express.Router();
@@ -31,11 +30,16 @@ router.post('/auth/login', function(req, res, next) {
     if (!user) return res.status(401).json({message: 'failed login'});
     if (user) {
       let encoded = user.generateJWT();
-      console.log(`userJwt: ${encoded}`);
       req.logIn(user, (err) => {
         if (err) return next({message: 'login failed', error: err});
-        res.cookie('jwt', encoded, '90000');
-        return res.json({message: 'login successful'});
+        if (user) {
+          req.session.save(function (err){
+            if (err) return next({message: 'session failed', error: err});
+            return res.cookie('jwt', encoded, '90000').json({message: 'login successful'});
+          });
+        } else {
+          res.json({message: 'please try again.'});
+        }
       });
     }
   })(req, res, next);
@@ -45,6 +49,7 @@ router.get('/auth/logout', (req, res, next) => {
   req.session.destroy((err) => {
     if (err) return next({message: 'still authenticated, please try again.', error: err});
     req.user = null;
+    req.session = null;
     req.logout();
     return res.json({isAuthenticated: req.isAuthenticated()});
   });

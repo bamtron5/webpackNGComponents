@@ -1,8 +1,8 @@
 import * as express from 'express';
-import isLoggedIn from '../lib/isLoggedIn';
+import {isAuthenticated} from '../lib/auth';
 let router = express.Router();
 
-router.get('/protected', isLoggedIn, (req, res, next) => {
+router.get('/protected', isAuthenticated, (req, res, next) => {
   res.json({message: 'OMG SO SECRET'});
 });
 
