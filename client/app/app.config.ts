@@ -40,6 +40,20 @@ const Config = [
     }
   ]);
 
+  $httpProvider.interceptors.push([
+    '$injector',
+    function ($injector) {
+      return $injector.get('tokenIntereptor');
+    }
+  ]);
+
+  $httpProvider.interceptors.push([
+    '$injector',
+    function ($injector) {
+      return $injector.get('addAuthorization');
+    }
+  ]);
+
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: true, // because of a karma.conf issue

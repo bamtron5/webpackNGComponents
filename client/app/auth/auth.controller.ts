@@ -24,12 +24,8 @@ export class AuthController {
   public login() {
     this.UserService.login(this.user)
       .then((response) => {
-        if (response.message === this.AUTHENTICATION_STATUS.success) {
-          this.toastr.success(`Welcome, ${this.user.username}`, this.AUTHENTICATION_STATUS.success);
-          this.$state.go('reload');
-        } else {
-          this.toastr.error('Your credentials are wrong.', 'Error');
-        }
+        this.toastr.success(`Welcome, ${this.user.username}`, this.AUTHENTICATION_STATUS.success);
+        this.$state.go('reload');
       }).catch((e) => {
         this.toastr.error('Authentication failed.', 'Error:401');
       });

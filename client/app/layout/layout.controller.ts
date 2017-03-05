@@ -6,7 +6,8 @@ class LayoutController {
     SessionService,
     private UserService,
     private $state: ng.ui.IStateService,
-    private toastr
+    private toastr,
+    private $localStorage
   ) {
     this.user = SessionService.getUser();
   }
@@ -14,6 +15,7 @@ class LayoutController {
   public logout() {
     this.UserService.logout()
       .then((response) => {
+        delete this.$localStorage.token;
         this.toastr.info(`${this.user.username} has logged out.`, 'Goodbye');
         this.$state.go('reload');
       })
@@ -27,7 +29,8 @@ LayoutController.$inject = [
   'SessionService',
   'UserService',
   '$state',
-  'toastr'
+  'toastr',
+  '$localStorage'
 ];
 
 export default LayoutController;

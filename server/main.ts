@@ -14,6 +14,7 @@ import * as passport from 'passport';
 import * as path from 'path';
 import routes from './routes';
 import {User} from './models/User';
+import {cookieList} from './lib/dev';
 
 // routes
 import * as ping from './api/ping';
@@ -82,7 +83,7 @@ app.use(cookieParser());
 
 // config req.session
 let sess = {
-  maxAge: 172800000, //  2 days
+  maxAge: 24 * 60 * 60 * 1000 * 2, //  2 days
   secure: false,
   httpOnly: true
 };

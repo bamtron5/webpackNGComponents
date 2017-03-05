@@ -1,5 +1,4 @@
 import * as angular from 'angular';
-import '../../node_modules/reload/lib/reload-client.js';
 import config from './app.config';
 import run from './app.run';
 import core from './core/core.module';
@@ -14,6 +13,7 @@ import DogsListComponent from './dogsList/dogsList.module';
 import D3Component from './d3Demo/d3Demo.module';
 import MoAnimationComponent from './moAnimation/moAnimation.module';
 import AuthComponent from './auth/auth.module';
+import CarComponent from './carList/carList.module';
 
 const name = 'app';
 const dependencies = [
@@ -27,7 +27,8 @@ const dependencies = [
   DogsListComponent,
   D3Component,
   MoAnimationComponent,
-  AuthComponent
+  AuthComponent,
+  CarComponent
 ];
 
 angular.module(name, dependencies)

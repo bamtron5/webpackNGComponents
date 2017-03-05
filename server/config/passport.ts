@@ -21,8 +21,7 @@ let initialize = function intialize () {
 
   let opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: process.env.JWT_SECRET,
-    audience: process.env.ROOT_URL
+    secretOrKey: process.env.JWT_SECRET
   };
 
   // For API Claims

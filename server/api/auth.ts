@@ -29,16 +29,16 @@ router.post('/auth/login', function(req, res, next) {
     if (err) return next(err);
     if (!user) return res.status(401).json({message: 'failed login'});
     if (user) {
-      let encoded = user.generateJWT();
       req.logIn(user, (err) => {
-        if (err) return next({message: 'login failed', error: err});
+        if (err) return next({message: 'login failed', error: err, status: 500});
         if (user) {
           req.session.save(function (err){
-            if (err) return next({message: 'session failed', error: err});
-            return res.cookie('jwt', encoded, '90000').json({message: 'login successful'});
+            if (err) return next({message: 'session failed', error: err, status: 500});
+            let token = user.generateJWT();
+            return res.json({token});
           });
         } else {
-          res.json({message: 'please try again.'});
+          res.json({message: 'please try again.'}).status(500);
         }
       });
     }

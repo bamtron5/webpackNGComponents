@@ -3,7 +3,7 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import {logHeaders} from '../lib/dev';
-import {isAuthenticated, isSession} from '../lib/auth';
+import {isSession} from '../lib/auth';
 import {Car} from '../models/Car';
 import {sanitizeQ} from '../lib/sanitize';
 let router = express.Router();
@@ -15,14 +15,10 @@ let exqCars = [
   'min'
 ];
 
-router.get('/cars',
-  // isSession,
-  // isAuthenticated,
-  // logHeaders,
-  // validate TODO
-  // resign claim TODO
+router.get('/car',
+  isSession,
   sanitizeQ(exqCars),
-  passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  passport.authenticate('jwt', {}), (req, res, next) => {
     let conditioned = {
       condition: req.query['condition'] ? {$in: req.query['condition']} : {$exists: true},
       max: (req.query['max'] || Infinity),

@@ -1,14 +1,12 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import {logHeaders} from '../lib/dev';
-import {isAuthenticated, isSession} from '../lib/auth';
+import {isSession} from '../lib/auth';
 import {User} from '../models/User';
 let router = express.Router();
 
 router.get('/ping',
   isSession,
-  isAuthenticated,
-  // logHeaders,
   passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let query = {
       condition: {$in: req.query['condition']} || {$exists: true},

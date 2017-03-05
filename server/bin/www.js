@@ -7,7 +7,6 @@
 var app = require('../main');
 var debug = require('debug')('myapp:server')
 var http = require('http')
-var reload = require('reload')
 var isDev = app.get('env') === 'development' ? true : false
 
 /**
@@ -27,9 +26,6 @@ var server = http.createServer(app)
  * Listen on provided port, on all network interfaces.
  */
 
-if (isDev) {
-  reload(server, app)
-}
 
 server.listen(port)
 server.on('error', onError)

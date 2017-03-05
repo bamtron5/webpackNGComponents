@@ -1,13 +1,16 @@
 import * as passport from 'passport';
 import * as express from 'express';
+import * as simple from 'jwt-simple';
 
-export const isAuthenticated = function isLoggedIn (req, res, next) {
-  console.log(`req.user`, req.user);
-  console.log(`req.isAuthenticated()`, req.isAuthenticated());
-  return req.isAuthenticated() ? next() : res.json({message: 'A: unauthenticated. please login'}).status(401);
-};
-
+// Compare jwt to session
+// Must have session and header authorization
 export const isSession = function isSession (req, res, next) {
-  console.log(`req.session`, req.session);
-  return req.session ? next() : res.json({message: 'B: unauthenticated. please login.'}).status(401);
+  if (req.session.passport && req.headers.authorization) {
+    let decoded = simple.decode(req.headers.authorization.substring(4), process.env.JWT_SECRET);
+    return req.session.passport.user['username'] === decoded.username
+      ? next()
+      : res.status(401).json({message: 'please login.'});
+  } else {
+    return res.status(401).json({message: 'please login.'});
+  }
 };

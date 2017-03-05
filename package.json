@@ -109,6 +109,7 @@
     "http": "0.0.0",
     "jquery": "^3.1.1",
     "jsonwebtoken": "^7.3.0",
+    "jwt-simple": "^0.5.1",
     "lodash": "^4.17.4",
     "mo-js": "^0.288.1",
     "mojs-curve-editor": "^1.5.0",
