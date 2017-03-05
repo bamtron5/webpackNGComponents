@@ -1,6 +1,8 @@
 language: node_js
 before_script:
 - npm install -g webpack typescript karma
+- npm i karma-webpack karma-jasmine karma-coverage karma-chrome-launcher
+- npm i karma-typescript karma-typescript-preprocessor karma-requirejs karma-jasmine-html-reporter
 script: tsc && webpack --config webpack/webpack.config.js && karma start --single-run
 env:
   global:
