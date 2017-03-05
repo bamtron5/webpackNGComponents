@@ -1,7 +1,7 @@
 language: node_js
 before_script:
 - npm install -g webpack typescript karma
-script: tsc && webpack
+script: tsc && webpack --config webpack/webpack.config.js
 env:
   global:
   - secure: DBKxYB4FVmOhhNxxN61VFz0zzs8Dbe4cUoEWRsJTiwkYtM/H2VLFWzRUNobu5pTd5uI8/gFbbIFBuD/QO40+E53nU9Pfdlbszq0tvQwYC42+vzycBVT+Rzx6lcCfIFhgUNzDBKCgrkboIL+XGhkC6Fbqs+eUmIHAqru4uUgxIrAvvq4ea3avUi1BFn9v3ojg8gHIdXitVXUGQFd22lPxunGA24IFc5OnUUpkJnCYknTRux+ZfUxUF34uvNV37V0TjdLsvncHuaM2vJAZXcGnTZe85wuu9tIOBs7/J/z+5DJq6mvNVGHcG3W/I71pX+Ylf6yW9qrDnHgJbJm0f0hNxBVu+USdRrPv0jkdX4WrvzvBLAVdnHj9jSEFJ+DyaLTsIPzB6k5rKBGLiKenjsuLglD2dUrbELmSZ97eZNuDi9LCSz8bh2DXPvPgeOMb2Q6TQ7FBaoIlBR66cs/XzC7t6wtcf2a2OrI3EbL+kIjsBKVeLMcRfPNkktgbWJh2nXGzZUkfuLLuY0oGz6fqNZbSplX3iS4kgAmMdLXUrNE7bz3D/9KTm0cJNYSLf1nb9V/9cLydPPOCFZ4ZwQK3CrwJQh+klBGxJIY0jzzwCV+XjZ02p/EXn9tGZzDMLPph7I29z76Zj3GWFpxmx927uEOx4wAiO+H70TLnzJGaRKW3N+A=
