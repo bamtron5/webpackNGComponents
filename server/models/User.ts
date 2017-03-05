@@ -48,15 +48,12 @@ UserSchema.method('setPassword', function(password) {
 
 UserSchema.method('validatePassword', function(password) {
   let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-  console.log(`hash === this.passwordHash ${hash === this.passwordHash} hash = ${hash}`);
   return (hash === this.passwordHash);
 });
 
 UserSchema.method('generateJWT', function() {
   return jwt.sign({
-    _id: this._id,
-    username: this.username,
-    email: this.email
+    username: this.username
   }, process.env.JWT_SECRET, {expiresIn: '2 days'});
 });
 

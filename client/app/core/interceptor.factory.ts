@@ -15,9 +15,34 @@ function authInterceptor($rootScope, $q, AUTH_EVENTS) {
     }
   };
 }
-
 authInterceptor.$inject = ['$rootScope', '$q', 'AUTH_EVENTS'];
+
+function tokenIntereptor($rootScope, $q, $localStorage) {
+  return {
+    response: function response (result) {
+      if (result['data'].token) {
+        $localStorage.token = result['data'].token;
+      }
+      return $q.resolve(result);
+    }
+  };
+}
+tokenIntereptor.$inject = ['$rootScope', '$q', '$localStorage'];
+
+function addAuthorization($rootScope, $q, $localStorage) {
+  return {
+    request: function response (config) {
+      if ($localStorage['token']) {
+        config.headers['Authorization'] = `JWT ${$localStorage['token']}`;
+      }
+      return $q.resolve(config);
+    }
+  };
+}
+addAuthorization.$inject = ['$rootScope', '$q', '$localStorage'];
 
 export default angular.module('app.interceptor', [])
   .factory('authInterceptor', authInterceptor)
+  .factory('tokenIntereptor', tokenIntereptor)
+  .factory('addAuthorization', addAuthorization)
   .name;
