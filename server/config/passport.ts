@@ -1,9 +1,11 @@
 import * as passport from 'passport';
 import * as mongoose from 'mongoose';
-let LocalStrategy = require('passport-local').Strategy;
-let TwitterStrategy = require('passport-twitter').Strategy;
 import {User, IUser} from '../models/User';
 import * as jwt from 'jsonwebtoken';
+let LocalStrategy = require('passport-local').Strategy;
+let TwitterStrategy = require('passport-twitter').Strategy;
+let JwtStrategy = require('passport-jwt').Strategy;
+let ExtractJwt = require('passport-jwt').ExtractJwt;
 
 let initialize = function intialize () {
   passport.serializeUser(function(user: IUser, done) {
@@ -17,11 +19,31 @@ let initialize = function intialize () {
     });
   });
 
+  let opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    secretOrKey: process.env.JWT_SECRET
+  };
+
+  // For API Claims
+  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    User.findOne({id: jwt_payload.sub}, function(err, user) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        done(null, user);
+      } else {
+        done(null, false);
+      }
+    });
+  }));
+
   passport.use(new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,
       consumerSecret: process.env.TWITTER_SECRET,
       callbackURL: process.env.ROOT_URL + '/auth/twitter/callback',
-      profileFields: ['id', 'displayName', 'photos']
+      profileFields: ['id', 'displayName', 'photos'],
+      session: true
     },
     function(token, tokenSecret, profile, cb) {
       User.findOne({ twitterId: profile.id }, function (err, user) {
@@ -42,7 +64,7 @@ let initialize = function intialize () {
     }
   ));
 
-  passport.use(new LocalStrategy(function(username: string, password: string, done) {
+  passport.use(new LocalStrategy({session: true}, function(username: string, password: string, done) {
     User.findOne({ username }).select('+passwordHash +salt')
       .exec(function(err, user) {
         if (err) return done(err);
