@@ -3,7 +3,7 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import {logHeaders} from '../lib/dev';
-import {isSession} from '../lib/auth';
+import {isSession, hasRole} from '../lib/auth';
 import {Car} from '../models/Car';
 import {sanitizeQ} from '../lib/sanitize';
 let router = express.Router();
@@ -17,6 +17,7 @@ let exqCars = [
 
 router.get('/car',
   isSession,
+  hasRole('admin'),
   sanitizeQ(exqCars),
   passport.authenticate('jwt', {}), (req, res, next) => {
     let conditioned = {
