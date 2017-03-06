@@ -1,13 +1,6 @@
 var webpackConfig = require('./webpack/webpack.config');
 var testConfig = require('./webpack/test.config.js');
-require('karma-jasmine');
-require('karma-coverage');
-require('karma-chrome-launcher');
-require('karma-webpack');
-require('karma-typescript');
-require('karma-typescript-preprocessor');
-require('karma-requirejs');
-require('karma-jasmine-html-reporter');
+
 module.exports = function(config) {
   var configuration = {
 
@@ -51,14 +44,14 @@ module.exports = function(config) {
     ],
 
     plugins: [
-      'karma-jasmine',
-      'karma-coverage',
-      'karma-chrome-launcher',
-      'karma-webpack',
-      'karma-typescript',
-      'karma-typescript-preprocessor',
-      'karma-requirejs',
-      'karma-jasmine-html-reporter'
+      require('karma-jasmine'),
+      require('karma-coverage'),
+      require('karma-chrome-launcher'),
+      require('karma-webpack'),
+      require('karma-typescript'),
+      require('karma-typescript-preprocessor'),
+      require('karma-requirejs'),
+      require('karma-jasmine-html-reporter')
     ],
 
     // preprocess matching files before serving them to the browser
