@@ -18,15 +18,6 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   plugins: [
-    new BrowserSyncPlugin({
-      // browse to http://localhost:3000/ during development,
-      // ./public directory is being served
-      host: 'localhost',
-      port: 8080,
-      proxy: 'http://localhost:3000',
-      files: ['../client/dist/bundle.js'],
-      injectChanges: true
-    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
