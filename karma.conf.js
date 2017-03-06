@@ -1,6 +1,13 @@
 var webpackConfig = require('./webpack/webpack.config');
 var testConfig = require('./webpack/test.config.js');
-
+require('karma-jasmine');
+require('karma-coverage');
+require('karma-chrome-launcher');
+require('karma-webpack');
+require('karma-typescript');
+require('karma-typescript-preprocessor');
+require('karma-requirejs');
+require('karma-jasmine-html-reporter');
 module.exports = function(config) {
   var configuration = {
 
