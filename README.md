@@ -21,6 +21,7 @@ TWITTER_SECRET=yourTwitterAppSecret
 ADMIN_EMAIL=youremail@email.com
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=password
+JWT_SECRET=secret
 ```
 
 Commands
