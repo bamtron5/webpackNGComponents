@@ -3,6 +3,9 @@ import configPassport from './config/passport';
 import * as debug from 'debug';
 import * as ejs from 'ejs';
 import * as express from 'express';
+import * as cookieParser from 'cookie-parser';
+import * as session from 'express-session';
+const MongoStore = require('connect-mongo')(session);
 let expressValidator = require('express-validator');
 import * as helmet from 'helmet';
 import * as mongoose from 'mongoose';
@@ -73,12 +76,38 @@ mongoose.connect(process.env.MONGO_URI)
 // serve cookies through the proxy
 app.set('trust proxy', 1);
 
+app.use(cookieParser());
+
+let sess = {
+  maxAge: 172800000, // 2 days
+  secure: false,
+  httpOnly: true
+};
+
+// set to secure in production
+if (app.get('env') === 'production') {
+  sess.secure = true; // serve secure cookies
+}
+
+// use session config
+app.use(session({
+  cookie: sess,
+  secret: process.env.SESSION_SECRET, // can support an array
+  store: new MongoStore({
+    url: process.env.MONGO_URI
+  }),
+  unset: 'destroy',
+  resave: false,
+  saveUninitialized: false // if nothing has changed.. do not restore cookie
+}));
+
 // config bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
 app.use(passport.initialize());
+app.use(passport.session());
 
 // a server route
 app.use('/', routes);
