@@ -7,6 +7,7 @@ import {isSession, hasRole} from '../lib/auth';
 import {Car} from '../models/Car';
 import {sanitizeQ} from '../lib/sanitize';
 let router = express.Router();
+import {guard} from '../lib/guard';
 
 // My Expected qs for cars
 let exqCars = [
@@ -16,10 +17,12 @@ let exqCars = [
 ];
 
 router.get('/car',
-  isSession,
-  hasRole('admin'),
-  sanitizeQ(exqCars),
-  passport.authenticate('jwt', {}), (req, res, next) => {
+  isSession,                    // checks jwt to session username
+  hasRole('admin'),             // checks role
+  passport.authenticate('jwt'), // check for existent jwt and it's validity
+  guard(['car:read']),          // checks permission
+  sanitizeQ(exqCars),           // strips query strings ... best use on POST, PUT, PATCH
+  (req, res, next) => {
     let conditioned = {
       condition: req.query['condition'] ? {$in: req.query['condition']} : {$exists: true},
       max: (req.query['max'] || Infinity),
