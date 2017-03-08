@@ -4,7 +4,7 @@ import * as passport from 'passport';
 let router = express.Router();
 
 router.get('/login/twitter',
-  passport.authenticate('twitter'));
+  passport.authenticate('twitter', {session: true}));
 
 router.get('/auth/twitter/callback',
   passport.authenticate('twitter', { session: true, failureRedirect: '/', successRedirect: '/'}));
