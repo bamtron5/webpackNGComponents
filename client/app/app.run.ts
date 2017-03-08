@@ -16,12 +16,6 @@ export default [
     toastr
   ) {
     $rootScope.$on('$stateChangeStart', (event, next) => {
-      UserService.getCurrentUser().then((user) => {
-        $sessionStorage.user = user.data;
-      }).catch((user) => {
-        $sessionStorage.user = user.data;
-      });
-
       if (next.data) {
         let authorizedRoles = next.data['authorizedRoles'] ? next.data['authorizedRoles'] : false;
         if (authorizedRoles && !SessionService.isAuthorized(authorizedRoles)) {

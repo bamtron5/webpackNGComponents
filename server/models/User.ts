@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as validator from 'validator';
+import {permission} from './../config/permission';
 
 export interface ITwitter {
   token: string;
@@ -53,7 +54,9 @@ UserSchema.method('validatePassword', function(password) {
 
 UserSchema.method('generateJWT', function() {
   return jwt.sign({
-    username: this.username
+    username: this.username,
+    roles: this.roles,
+    permissions: this.roles.reduce((acc, role) => { return acc.concat(permission[role]); }, [])
   }, process.env.JWT_SECRET, {expiresIn: '2 days'});
 });
 
