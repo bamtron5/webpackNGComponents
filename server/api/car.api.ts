@@ -3,9 +3,9 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import {logHeaders} from '../lib/dev';
-import {isSession, hasRole} from '../lib/auth';
 import {Car} from '../models/Car';
 import {sanitizeQ} from '../lib/sanitize';
+let guard = require('express-jwt-permissions')();
 let router = express.Router();
 
 // My Expected qs for cars
@@ -16,10 +16,10 @@ let exqCars = [
 ];
 
 router.get('/car',
-  isSession,
-  hasRole('admin'),
+  passport.authenticate('jwt'),
+  guard.check(['car:read']),
   sanitizeQ(exqCars),
-  passport.authenticate('jwt', {}), (req, res, next) => {
+  (req, res, next) => {
     let conditioned = {
       condition: req.query['condition'] ? {$in: req.query['condition']} : {$exists: true},
       max: (req.query['max'] || Infinity),

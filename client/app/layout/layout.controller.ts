@@ -3,7 +3,7 @@ import * as angular from 'angular';
 class LayoutController {
   public user;
   constructor(
-    SessionService,
+    private SessionService,
     private UserService,
     private $state: ng.ui.IStateService,
     private toastr,
@@ -16,6 +16,7 @@ class LayoutController {
     this.UserService.logout()
       .then((response) => {
         delete this.$localStorage.token;
+        this.SessionService.destroy();
         this.toastr.info(`${this.user.username} has logged out.`, 'Goodbye');
         this.$state.go('reload');
       })
