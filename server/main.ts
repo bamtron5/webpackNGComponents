@@ -1,14 +1,14 @@
 import * as bodyParser from 'body-parser';
 import configPassport from './config/passport';
+import * as cookieParser from 'cookie-parser';
 import * as debug from 'debug';
 import * as ejs from 'ejs';
 import * as express from 'express';
-import * as cookieParser from 'cookie-parser';
-import * as session from 'express-session';
-const MongoStore = require('connect-mongo')(session);
 let expressValidator = require('express-validator');
+import * as session from 'express-session';
 import * as helmet from 'helmet';
 import * as mongoose from 'mongoose';
+let MongoStore = require('connect-mongo')(session);
 import * as morgan from 'morgan';
 import * as passport from 'passport';
 import * as path from 'path';
@@ -54,21 +54,23 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('mongoose connected');
     configPassport();
-    Car.count('*')
-      .then((count) => count === 0 ? Car.create(carSeed) : null)
-      .catch((e) => console.log(e));
+    if (isDev) {
+      Car.count('*')
+        .then((count) => count === 0 ? Car.create(carSeed) : null)
+        .catch((e) => console.log(e));
 
-    User.findOne({username: 'admin'}, (err, user) => {
-      if (err) return;
-      if (user) return;
-      if (!user)
-        var admin = new User();
-        admin.email = process.env.ADMIN_EMAIL;
-        admin.username = process.env.ADMIN_USERNAME;
-        admin.setPassword(process.env.ADMIN_PASSWORD);
-        admin.roles = ['user', 'admin'];
-        admin.save();
-    });
+      User.findOne({username: 'admin'}, (err, user) => {
+        if (err) return;
+        if (user) return;
+        if (!user)
+          var admin = new User();
+          admin.email = process.env.ADMIN_EMAIL;
+          admin.username = process.env.ADMIN_USERNAME;
+          admin.setPassword(process.env.ADMIN_PASSWORD);
+          admin.roles = ['user', 'admin'];
+          admin.save();
+      });
+    }
   }).catch((e) => {
     console.log(e);
   });
@@ -76,30 +78,34 @@ mongoose.connect(process.env.MONGO_URI)
 // serve cookies through the proxy
 app.set('trust proxy', 1);
 
+// parse cookies ability
 app.use(cookieParser());
 
+// config req.session
 let sess = {
-  maxAge: 172800000, // 2 days
+  maxAge: 24 * 60 * 60 * 1000 * 2, //  2 days
   secure: false,
   httpOnly: true
 };
 
 // set to secure in production
-if (app.get('env') === 'production') {
-  sess.secure = true; // serve secure cookies
+if (!isDev) {
+  sess.secure = true;
 }
 
 // use session config
-app.use(session({
-  cookie: sess,
-  secret: process.env.SESSION_SECRET, // can support an array
-  store: new MongoStore({
-    url: process.env.MONGO_URI
-  }),
-  unset: 'destroy',
-  resave: false,
-  saveUninitialized: false // if nothing has changed.. do not restore cookie
-}));
+app.use(
+  session({
+    cookie: sess,
+    secret: process.env.SESSION_SECRET, // can support an array
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    }),
+    unset: 'destroy',
+    resave: false,
+    saveUninitialized: false // if nothing has changed.. do not restore cookie
+  })
+);
 
 // config bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
