@@ -3,7 +3,7 @@ import {CarServiceC} from '../services/car.service';
 export class CarListController {
   public cars;
   public query = {};
-  public test = '1';
+  public test = '12345';
   constructor(
     private CarService: CarServiceC,
     private toastr

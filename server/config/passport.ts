@@ -31,7 +31,7 @@ let initialize = function intialize () {
         return done(err, false);
       }
       if (user) {
-        done(null, user);
+        done(null, jwt_payload);
       } else {
         done(null, false);
       }
@@ -48,7 +48,8 @@ let initialize = function intialize () {
     function(token, tokenSecret, profile, cb) {
       User.findOne({ twitterId: profile.id }, function (err, user) {
         if (user) {
-          return cb(err, user);
+          let token = user.generateJWT();
+          return cb(err, {token, user});
         } else {
           let u = new User();
           u.username = profile.displayName;
@@ -57,7 +58,8 @@ let initialize = function intialize () {
           u.twitter.token = token;
           u.save((err) => {
             if (err) cb(err, null);
-            return cb(null, u);
+            let token = user.generateJWT();
+            return cb(null, {token, u});
           });
         }
       });
@@ -65,7 +67,7 @@ let initialize = function intialize () {
   ));
 
   passport.use(new LocalStrategy({session: true}, function(username: string, password: string, done) {
-    User.findOne({ username }).select('+passwordHash +salt')
+    User.findOne({ username }, { _id: 0, __v: 0 }).select('+passwordHash +salt')
       .exec(function(err, user) {
         if (err) return done(err);
         if (!user) return done(null, false, { message: 'Incorrect username.' });

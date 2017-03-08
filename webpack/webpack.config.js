@@ -1,3 +1,5 @@
+// http://webpack.github.io/analyse/#hints
+// webpack --config webpack/webpack.config.js --profile --json > stats.json
 var webpack = require('webpack');
 var isProd = JSON.parse(process.env.PROD_ENV || '0'); // `PROD_ENV=1 webpack`
 var analyze = JSON.parse(process.env.ANALYZE || '0');
@@ -6,6 +8,7 @@ var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 module.exports = {
+  cache: true,
   entry: [
     __dirname + '/../client/app/app.module.ts'
   ],
@@ -37,7 +40,8 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json-loader',
+        exclude: ['/node_modules/']
       },
       {
         test: /\.css$/,
