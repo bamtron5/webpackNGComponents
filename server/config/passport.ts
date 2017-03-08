@@ -42,12 +42,14 @@ let initialize = function intialize () {
       consumerKey: process.env.TWITTER_KEY,
       consumerSecret: process.env.TWITTER_SECRET,
       callbackURL: process.env.ROOT_URL + '/auth/twitter/callback',
-      profileFields: ['id', 'displayName', 'photos']
+      profileFields: ['id', 'displayName', 'photos'],
+      session: true
     },
     function(token, tokenSecret, profile, cb) {
       User.findOne({ twitterId: profile.id }, function (err, user) {
         if (user) {
-          return cb(err, user);
+          let token = user.generateJWT();
+          return cb(err, {token, user});
         } else {
           let u = new User();
           u.username = profile.displayName;
@@ -56,7 +58,8 @@ let initialize = function intialize () {
           u.twitter.token = token;
           u.save((err) => {
             if (err) cb(err, null);
-            return cb(null, u);
+            let token = user.generateJWT();
+            return cb(null, {token, u});
           });
         }
       });
