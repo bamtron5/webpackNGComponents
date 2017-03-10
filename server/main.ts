@@ -16,17 +16,8 @@ import {User} from './models/User';
 import {cookieList} from './lib/dev';
 
 // routes
-import * as ping from './api/ping';
-import * as auth from './api/auth';
-import * as protect from './api/protected';
 import * as user from './api/user';
-import * as car from './api/car.api';
-
-// models
-import {Car} from './models/Car';
-
-// seeds
-import {carSeed} from './models/car.seed';
+import * as auth from './api/auth';
 
 // replacing deprecated promise
 (<any> mongoose).Promise = global.Promise;
@@ -51,10 +42,6 @@ app.use('/client', express.static('client'));
 // Connect to db
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    Car.count('*')
-      .then((count) => count === 0 ? Car.create(carSeed) : null)
-      .catch((e) => console.log(e));
-
     User.findOne({username: 'admin'}, (err, user) => {
       if (err) return;
       if (user) return;
@@ -115,11 +102,8 @@ app.use(passport.session());
 app.use('/', routes);
 
 // apis
-app.use('/api', ping);
-app.use('/api', protect);
 app.use('/api', user);
 app.use('/api', auth);
-app.use('/api', car);
 
 // THIS IS THE INTERCEPTION OF ALL OTHER REQ
 // After server routes / static / api
