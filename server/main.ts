@@ -1,5 +1,4 @@
 import * as bodyParser from 'body-parser';
-import configPassport from './config/passport';
 import * as cookieParser from 'cookie-parser';
 import * as debug from 'debug';
 import * as ejs from 'ejs';
@@ -52,8 +51,6 @@ app.use('/client', express.static('client'));
 // Connect to db
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('mongoose connected');
-    configPassport();
     if (isDev) {
       Car.count('*')
         .then((count) => count === 0 ? Car.create(carSeed) : null)
@@ -77,6 +74,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // serve cookies through the proxy
 app.set('trust proxy', 1);
+require('./config/passport');
 
 // parse cookies ability
 app.use(cookieParser());
