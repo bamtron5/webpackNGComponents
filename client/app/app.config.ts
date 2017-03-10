@@ -18,9 +18,9 @@ const Config = [
       abstract: true,
       template: '<layout></layout>',
       resolve: {
-        currentSession: ['UserService', '$sessionStorage',
-          (UserService, $sessionStorage) => {
-            UserService.getCurrentUser().then((user) => {
+        currentSession: ['UserService', '$sessionStorage', '$timeout',
+          (UserService, $sessionStorage, $timeout) => {
+            return UserService.getCurrentUser().then((user) => {
               $sessionStorage.user = user.data;
               return;
             }).catch((user) => {
