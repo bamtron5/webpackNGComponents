@@ -11,4 +11,5 @@ dist
 coverage
 !webpack.config.js
 !karma.conf.js
+!bs-config.js
 stats.json

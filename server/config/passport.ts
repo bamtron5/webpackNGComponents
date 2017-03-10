@@ -4,8 +4,11 @@ import {User, IUser} from '../models/User';
 import * as jwt from 'jsonwebtoken';
 let LocalStrategy = require('passport-local').Strategy;
 let TwitterStrategy = require('passport-twitter').Strategy;
+let SoundCloudStrategy = require('passport-soundcloud').Strategy;
+var SoundCloudTokenStrategy = require('passport-soundcloud-token');
 let JwtStrategy = require('passport-jwt').Strategy;
 let ExtractJwt = require('passport-jwt').ExtractJwt;
+require('passport-oauth');
 
 let initialize = function intialize () {
   passport.serializeUser(function(user: IUser, done) {
@@ -31,12 +34,24 @@ let initialize = function intialize () {
         return done(err, false);
       }
       if (user) {
-        done(null, jwt_payload);
+        done(null, user);
       } else {
         done(null, false);
       }
     });
   }));
+debugger;
+  passport.use(new SoundCloudTokenStrategy({
+      clientID: process.env.SOUNDCLOUD_CLIENT_ID,
+      clientSecret: process.env.SOUNDCLOUD_CLIENT_SECRET,
+      callbackURL: 'http://127.0.0.1:3000/auth/soundcloud/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+      User.findOne({ soundcloudId: profile.id }, function (err, user) {
+        return done(err, user);
+      });
+    }
+  ));
 
   passport.use(new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,
@@ -48,8 +63,7 @@ let initialize = function intialize () {
     function(token, tokenSecret, profile, cb) {
       User.findOne({ twitterId: profile.id }, function (err, user) {
         if (user) {
-          let token = user.generateJWT();
-          return cb(err, {token, user});
+          return cb(err, user);
         } else {
           let u = new User();
           u.username = profile.displayName;
@@ -58,8 +72,7 @@ let initialize = function intialize () {
           u.twitter.token = token;
           u.save((err) => {
             if (err) cb(err, null);
-            let token = user.generateJWT();
-            return cb(null, {token, u});
+            return cb(null, u);
           });
         }
       });
@@ -67,7 +80,7 @@ let initialize = function intialize () {
   ));
 
   passport.use(new LocalStrategy({session: true}, function(username: string, password: string, done) {
-    User.findOne({ username }, { _id: 0, __v: 0 }).select('+passwordHash +salt')
+    User.findOne({ username }).select('+passwordHash +salt')
       .exec(function(err, user) {
         if (err) return done(err);
         if (!user) return done(null, false, { message: 'Incorrect username.' });

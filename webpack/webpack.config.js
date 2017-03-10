@@ -6,7 +6,6 @@ var analyze = JSON.parse(process.env.ANALYZE || '0');
 var path = require('path');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 module.exports = {
   cache: true,
   entry: [

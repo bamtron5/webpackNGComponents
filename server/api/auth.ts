@@ -6,10 +6,7 @@ import {User} from '../models/User';
 import * as moment from 'moment';
 let router = express.Router();
 
-router.get('/auth/currentuser', (req, res, next) => {
-  console.log(req.user);
-  return res.json(req.user || {});
-});
+router.get('/auth/currentuser', (req, res, next) => res.json(req.user || {}));
 
 router.post('/auth/register', function(req, res, next) {
   let user = new User();
@@ -35,10 +32,10 @@ router.post('/auth/login', function(req, res, next) {
       req.logIn(user, (err) => {
         if (err) return next({message: 'login failed', error: err, status: 500});
         if (user) {
-          req.session.save(function(err) {
-            if (err) return res.status(500).json({ message: 'session failed' });
+          req.session.save(function (err){
+            if (err) return next({message: 'session failed', error: err, status: 500});
             let token = user.generateJWT();
-            return res.json({token, user});
+            return res.json({token});
           });
         } else {
           res.json({message: 'please try again.'}).status(500);
@@ -50,8 +47,9 @@ router.post('/auth/login', function(req, res, next) {
 
 router.get('/auth/logout', (req, res, next) => {
   req.session.destroy((err) => {
-    if (err) return res.status(500).json({message: 'still authenticated, please try again.'});
+    if (err) return next({message: 'still authenticated, please try again.', error: err});
     req.user = null;
+    req.session = null;
     req.logout();
     return res.json({isAuthenticated: req.isAuthenticated()});
   });
