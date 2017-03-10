@@ -31,7 +31,6 @@
     "file-loader": "^0.10.1",
     "http-proxy-middleware": "^0.17.4",
     "jasmine": "^2.5.3",
-    "jasmine-core": "^2.5.2",
     "json-loader": "^0.5.4",
     "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",
