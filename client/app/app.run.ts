@@ -1,3 +1,4 @@
+import * as angular from 'angular';
 export default [
   '$rootScope',
   'UserService',
@@ -6,6 +7,7 @@ export default [
   '$state',
   'AUTH_EVENTS',
   'toastr',
+  '$localStorage',
   function run(
     $rootScope,
     UserService,
@@ -13,13 +15,16 @@ export default [
     SessionService,
     $state,
     AUTH_EVENTS,
-    toastr
+    toastr,
+    $localStorage
   ) {
     $rootScope.$on('$stateChangeStart', (event, next) => {
       UserService.getCurrentUser().then((user) => {
         $sessionStorage.user = user.data;
+        !user.data['username'] ? $localStorage['token'] = {} : angular.noop();
       }).catch((user) => {
         $sessionStorage.user = user.data;
+        !user.data['username'] ? $localStorage['token'] = {} : angular.noop();
       });
 
       if (next.data) {
