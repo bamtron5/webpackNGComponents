@@ -4,8 +4,11 @@ import {User, IUser} from '../models/User';
 import * as jwt from 'jsonwebtoken';
 let LocalStrategy = require('passport-local').Strategy;
 let TwitterStrategy = require('passport-twitter').Strategy;
+let SoundCloudStrategy = require('passport-soundcloud').Strategy;
+var SoundCloudTokenStrategy = require('passport-soundcloud-token');
 let JwtStrategy = require('passport-jwt').Strategy;
 let ExtractJwt = require('passport-jwt').ExtractJwt;
+require('passport-oauth');
 
 let initialize = function intialize () {
   passport.serializeUser(function(user: IUser, done) {
@@ -37,6 +40,18 @@ let initialize = function intialize () {
       }
     });
   }));
+debugger;
+  passport.use(new SoundCloudTokenStrategy({
+      clientID: process.env.SOUNDCLOUD_CLIENT_ID,
+      clientSecret: process.env.SOUNDCLOUD_CLIENT_SECRET,
+      callbackURL: 'http://127.0.0.1:3000/auth/soundcloud/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+      User.findOne({ soundcloudId: profile.id }, function (err, user) {
+        return done(err, user);
+      });
+    }
+  ));
 
   passport.use(new TwitterStrategy({
       consumerKey: process.env.TWITTER_KEY,

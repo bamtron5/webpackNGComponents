@@ -20,4 +20,18 @@ router.get('/auth/twitter/callback',
       });
   });
 
+router.get('/login/twitter',
+  passport.authenticate('soundcloud', {session: true}));
+
+router.get('/auth/soundcloud',
+  passport.authenticate('soundcloud-token'));
+
+router.get('/auth/soundcloud/callback',
+  passport.authenticate('soundcloud-token', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log('sure');
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 export default router;
