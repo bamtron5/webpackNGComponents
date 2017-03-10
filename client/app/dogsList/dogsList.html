@@ -1,9 +1,0 @@
-<h1 class="animated bounceIn">Dogs List</h1>
-
-<i ng-if="!vm.loaded" class="animated infinite rotateIn fa fa-spinner"></i>
-
-<div ng-if="vm.loaded">
-  <ul>
-    <li style="display:inline;" ng-repeat="dog in vm.dogs track by $index"><img ng-src="{{dog.images.preview_gif.url}}"></li>
-  </ul>
-</div>

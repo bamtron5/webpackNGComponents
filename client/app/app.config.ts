@@ -18,7 +18,17 @@ const Config = [
       abstract: true,
       template: '<layout></layout>',
       resolve: {
-        currentSession: ['SessionService', (SessionService) => SessionService.getUser()]
+        currentSession: ['UserService', '$sessionStorage', '$timeout',
+          (UserService, $sessionStorage, $timeout) => {
+            return UserService.getCurrentUser().then((user) => {
+              $sessionStorage.user = user.data;
+              return;
+            }).catch((user) => {
+              $sessionStorage.user = user.data;
+              return;
+            });
+          }
+        ]
       }
     })
     .state('reload', {

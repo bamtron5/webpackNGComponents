@@ -1,17 +1,2 @@
 <h1>{{vm.title}}</h1>
 <h4 ng-if="vm.user.username">Hello, {{vm.user.username}}</h2>
-<a href="/auth/soundcloud">Soundcloud</a>
-
-<script>
-SC.initialize({
-  client_id: 'WDwEtypBUU7GzSvk5P1M3jdKlo4sKKby',
-  redirect_uri: 'http://localhost:3000/auth/soundcloud/callback'
-});
-
-// initiate auth popup
-SC.connect().then(function() {
-  return SC.get('/me');
-}).then(function(me) {
-  alert('Hello, ' + me.username);
-});
-</script>

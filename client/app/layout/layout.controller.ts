@@ -1,7 +1,8 @@
 import * as angular from 'angular';
 
-class LayoutController {
+class LayoutController implements ng.IController {
   public user;
+  public $onInit;
   constructor(
     private SessionService,
     private UserService,
@@ -9,7 +10,9 @@ class LayoutController {
     private toastr,
     private $localStorage
   ) {
-    this.user = SessionService.getUser();
+    this.$onInit = function() {
+      this.user = SessionService.getUser();
+    };
   }
 
   public logout() {

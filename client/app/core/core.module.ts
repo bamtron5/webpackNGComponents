@@ -6,9 +6,7 @@ import 'ngstorage';
 import 'angular-resource';
 import 'angular-messages';
 import 'angular-nvd3';
-import {DogsServiceModule} from '../services/dogs.service';
 import {UserServiceModule} from '../services/user.service';
-import {CarServiceModule} from '../services/car.service';
 
 // LIB non injectable
 import '../../../node_modules/animate.css/animate.css';
@@ -25,8 +23,6 @@ export default angular.module('app.core', [
   coreConstants,
   coreFilters,
   authInterceptor,
-  DogsServiceModule,
-  UserServiceModule,
-  CarServiceModule
+  UserServiceModule
 ])
 .name;
