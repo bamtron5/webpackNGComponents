@@ -4,7 +4,8 @@
   "description": "",
   "main": "server/bin/www.js",
   "scripts": {
-    "preinstall": "npm i webpack typescript nodemon -g  && npm i",
+    "preinstall": "npm i webpack typescript nodemon -g",
+    "postinstall": "tsc &&  webpack --config webpack/webpack.config.js",
     "heroku-postbuild": "tsc && webpack --config webpack/webpack.config.js",
     "analyze": "ANALYZE=1 npm run build",
     "build:client": "webpack --config webpack/webpack.config.js",
