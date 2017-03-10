@@ -51,23 +51,21 @@ app.use('/client', express.static('client'));
 // Connect to db
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    if (isDev) {
-      Car.count('*')
-        .then((count) => count === 0 ? Car.create(carSeed) : null)
-        .catch((e) => console.log(e));
+    Car.count('*')
+      .then((count) => count === 0 ? Car.create(carSeed) : null)
+      .catch((e) => console.log(e));
 
-      User.findOne({username: 'admin'}, (err, user) => {
-        if (err) return;
-        if (user) return;
-        if (!user)
-          var admin = new User();
-          admin.email = process.env.ADMIN_EMAIL;
-          admin.username = process.env.ADMIN_USERNAME;
-          admin.setPassword(process.env.ADMIN_PASSWORD);
-          admin.roles = ['user', 'admin'];
-          admin.save();
-      });
-    }
+    User.findOne({username: 'admin'}, (err, user) => {
+      if (err) return;
+      if (user) return;
+      if (!user)
+        var admin = new User();
+        admin.email = process.env.ADMIN_EMAIL;
+        admin.username = process.env.ADMIN_USERNAME;
+        admin.setPassword(process.env.ADMIN_PASSWORD);
+        admin.roles = ['user', 'admin'];
+        admin.save();
+    });
   }).catch((e) => {
     console.log(e);
   });

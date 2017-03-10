@@ -14,6 +14,7 @@ import D3Component from './d3Demo/d3Demo.module';
 import MoAnimationComponent from './moAnimation/moAnimation.module';
 import AuthComponent from './auth/auth.module';
 import CarComponent from './carList/carList.module';
+import CarChildTwo from './carList/carChildTwo';
 
 const name = 'app';
 const dependencies = [
@@ -28,7 +29,8 @@ const dependencies = [
   D3Component,
   MoAnimationComponent,
   AuthComponent,
-  CarComponent
+  CarComponent,
+  CarChildTwo
 ];
 
 angular.module(name, dependencies)
