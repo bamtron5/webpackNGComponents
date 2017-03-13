@@ -5,12 +5,16 @@ const Config = [
   '$stateProvider',
   '$urlRouterProvider',
   '$httpProvider',
+  '$mdThemingProvider',
   (
     $locationProvider: ng.ILocationProvider,
     $stateProvider: angular.ui.IStateProvider,
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
-    $httpProvider: ng.IHttpProvider
+    $httpProvider: ng.IHttpProvider,
+    $mdThemingProvider: angular.material.IThemingProvider
   ) => {
+
+  $mdThemingProvider.theme('default');
 
   $stateProvider
     .state('main', {
