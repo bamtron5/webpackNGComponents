@@ -5,10 +5,12 @@ class HomeController {
   public user;
   constructor(
     HOME_CONFIG,
-    private SessionService: SessionServiceClass
+    private SessionService: SessionServiceClass,
+    private $stateParams
   ) {
     this.title = HOME_CONFIG.title;
     this.user = SessionService.getUser();
+    console.log(this.$stateParams);
   }
 }
 

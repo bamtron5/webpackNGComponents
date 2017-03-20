@@ -19,6 +19,9 @@ import {cookieList} from './lib/dev';
 import * as user from './api/user';
 import * as auth from './api/auth';
 
+import {Rating} from './models/Rating';
+import ratingSeed from './models/rating.seed';
+
 // replacing deprecated promise
 (<any> mongoose).Promise = global.Promise;
 
@@ -42,6 +45,11 @@ app.use('/client', express.static('client'));
 // Connect to db
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
+
+    ratingSeed()
+      .then((v) => Rating.create(...v))
+      .catch((e) => console.log(e));
+
     User.findOne({username: 'admin'}, (err, user) => {
       if (err) return;
       if (user) return;

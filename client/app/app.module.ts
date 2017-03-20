@@ -8,6 +8,7 @@ import {SessionServiceModule} from './services/session.service';
 import LayoutComponent from './layout/layout.module';
 import HomeComponent from './home/home.module';
 import AuthComponent from './auth/auth.module';
+import NestedComponent from './nested/nested.module';
 
 const name = 'app';
 const dependencies = [
@@ -16,7 +17,8 @@ const dependencies = [
   core, // YOUR CORE DEPENDENCIES
   HomeComponent,
   LayoutComponent,
-  AuthComponent
+  AuthComponent,
+  NestedComponent
 ];
 
 angular.module(name, dependencies)

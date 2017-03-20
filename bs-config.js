@@ -5,7 +5,7 @@ var apiProxy = proxy('/', {
 });
 
 module.exports = {
-  port: 8080,
+  port: 9000,
   server: {
     middleware: {
       1: apiProxy
