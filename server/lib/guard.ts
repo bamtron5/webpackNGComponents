@@ -1,14 +1,13 @@
 import * as simple from 'jwt-simple';
+import {isSession} from './auth';
 
 export const guard = function guard (permissions: [string]) {
   return function expStack (req, res, next) {
-    if (!req.headers['authorization']) {
+    if (!req.cookies['access_token'] && isSession(req, res, next)) {
       return res.status(403);
     }
 
-    let token = req.headers['authorization'];
-    let decoded = simple.decode(token.substring(4), process.env.JWT_SECRET);
-
+    let decoded = simple.decode(req.cookies['access_token'], process.env.JWT_SECRET);
     if (!decoded.permissions) {
       return res.status(403);
     }

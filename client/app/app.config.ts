@@ -11,7 +11,7 @@ const Config = [
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
     $httpProvider: ng.IHttpProvider
   ) => {
-
+ 
   $stateProvider
     .state('main', {
       url: '',
@@ -43,6 +43,7 @@ const Config = [
       }
     });
 
+  $httpProvider.defaults.withCredentials = true;
   $httpProvider.interceptors.push([
     '$injector',
     function ($injector) {

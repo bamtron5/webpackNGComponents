@@ -3,10 +3,16 @@ import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as jwt from 'jsonwebtoken';
 import {User} from '../models/User';
+import {guard} from '../lib/guard';
+import {isSession, setCookie} from '../lib/auth';
+
 import * as moment from 'moment';
 let router = express.Router();
 
-router.get('/auth/currentuser', (req, res, next) => res.json(req.user || {}));
+// YOU ARE AUTHORIZED TO ASK
+// RATE LIMITERS
+router.get('/auth/currentuser',
+(req, res, next) => res.json(req.user || {}));
 
 router.post('/auth/register', function(req, res, next) {
   let user = new User();
@@ -35,7 +41,7 @@ router.post('/auth/login', function(req, res, next) {
           req.session.save(function (err){
             if (err) return next({message: 'session failed', error: err, status: 500});
             let token = user.generateJWT();
-            return res.json({token});
+            return setCookie('access_token', token)(req, res, next);
           });
         } else {
           res.json({message: 'please try again.'}).status(500);
@@ -51,6 +57,7 @@ router.get('/auth/logout', (req, res, next) => {
     req.user = null;
     req.session = null;
     req.logout();
+    res.clearCookie('access_token');
     return res.json({isAuthenticated: req.isAuthenticated()});
   });
 });

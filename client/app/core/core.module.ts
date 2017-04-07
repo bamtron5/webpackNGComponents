@@ -2,6 +2,7 @@ import * as angular from 'angular';
 import coreConstants from './core.constants';
 import coreFilters from './core.filters';
 import authInterceptor from './interceptor.factory';
+import 'angular-cookies';
 import 'ngstorage';
 import 'angular-resource';
 import 'angular-messages';
@@ -17,6 +18,7 @@ import '../../../node_modules/angular-toastr/dist/angular-toastr.css';
 
 export default angular.module('app.core', [
   'ngResource',
+  'ngCookies',
   'ngMessages',
   'ngStorage',
   'toastr',
