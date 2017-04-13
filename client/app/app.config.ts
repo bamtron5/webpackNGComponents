@@ -11,7 +11,7 @@ const Config = [
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
     $httpProvider: ng.IHttpProvider
   ) => {
- 
+
   $stateProvider
     .state('main', {
       url: '',

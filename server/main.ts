@@ -14,6 +14,7 @@ import * as path from 'path';
 import routes from './routes';
 import {User} from './models/User';
 import {cookieList} from './lib/dev';
+import * as csrf from 'csurf';
 
 // routes
 import * as user from './api/user';
@@ -105,6 +106,12 @@ app.use(expressValidator());
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(csrf());
+app.use(function(req, res, next) {
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  return next();
+});
 
 // a server route
 app.use('/', routes);
